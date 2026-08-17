@@ -1,8 +1,8 @@
 # ValoVault — CURRENT STATE
 
-**Canonical development checkpoint:** Phase 08 in progress — **Pass 02 complete and verified**  
+**Canonical development checkpoint:** Phase 08 in progress — **Pass 03 complete and verified**  
 **Checkpoint date:** 2026-08-18  
-**Next objective:** Phase 08 Pass 03 — deterministic derived-working-copy normalization/alignment execution + capture/scenario queue orchestration.
+**Next objective:** Phase 08 Pass 04 — metric scorecards + calibration evidence ledger/queue, with no automatic or invented thresholds.
 
 ## Continuation rule
 
@@ -33,6 +33,7 @@ Permanent loop: **inspect → implement → test → fix → verify → update C
 - Base Vandal → Reaver Vandal remains the first premium vertical-slice sequence.
 - Family/theme evidence may propagate only with conflict guardrails.
 - Offline/local asset work only; never interact with running VALORANT, Vanguard, protected memory or multiplayer traffic.
+- Fidelity evidence is immutable source material. Derived working copies must retain SHA-256 provenance to originals.
 
 ## Completed through Phase 07
 
@@ -51,44 +52,54 @@ Recovered foundation + Backend Build v2, asset indexing/manifests, Windows integ
 
 ## Phase 08 Pass 02 — complete
 
+- observed reference/candidate capture-session manifests and canonical capture index;
+- deterministic, non-destructive normalization/alignment preflight;
+- durable `capture-index` and `fidelity-preflight` jobs + control APIs/UI stages;
+- original captures are never mutated;
+- packaged no-capture fixture: 0/44 reference + 0/44 candidate channels, preflight `BLOCKED` with 88 blockers and zero destructive operations.
+
+## Phase 08 Pass 03 — complete
+
 Added:
 
-- `packages/shared-schema/capture-session.schema.json`;
-- `packages/shared-schema/fidelity-preflight.schema.json`;
-- `tools/fidelity/capture_sessions.py`;
-- `tools/fidelity/preflight.py`;
-- canonical `data/control-plane/capture-index.json`;
-- per-role generated capture-session manifests under `data/control-plane/capture-sessions/`;
-- canonical `data/control-plane/fidelity-preflight.json`;
-- durable jobs `capture-index` and `fidelity-preflight`;
-- GET `/api/control/captures` and `/api/control/fidelity/preflight`;
-- POST `/api/control/capture-index` and `/api/control/fidelity-preflight`;
-- control-plane capture/preflight stages and blockers;
-- non-destructive normalization/alignment planning only — original capture evidence is never mutated.
+- `packages/shared-schema/capture-queue.schema.json`;
+- `packages/shared-schema/fidelity-working-set.schema.json`;
+- `tools/fidelity/capture_queue.py`;
+- `tools/fidelity/prepare_working_copy.py`;
+- canonical `data/control-plane/capture-queue.json`;
+- canonical `data/control-plane/fidelity-working-set.json`;
+- durable jobs `capture-queue` and `fidelity-prepare`;
+- GET `/api/control/capture-queue` and `/api/control/fidelity/working-set`;
+- POST `/api/control/capture-queue` and `/api/control/fidelity-prepare`;
+- capture/scenario queue + derived-working-set control-plane stages/blockers;
+- deterministic derived working-copy preparation with source/derived SHA-256 provenance;
+- unsupported transforms block rather than silently approximating temporal/FPS/resolution/audio normalization.
 
-Packaged fixture truth remains intentionally blocked because no real local captures are bundled:
+Packaged fixture truth:
 
 - reference observed channels: **0 / 44**;
 - candidate observed channels: **0 / 44**;
-- preflight verdict: **BLOCKED**;
-- preflight blockers: **88**;
-- destructive operations: **0**;
-- fidelity run: **BLOCKED by 88 missing inputs**.
+- preflight verdict: **BLOCKED** with **88** blockers;
+- capture/scenario queue: **10 actions**, **10 pending**, **0 ready**, all **NEED_BOTH**;
+- derived working-set verdict: **BLOCKED**;
+- derived copied files: **0**;
+- fidelity run remains **BLOCKED** by missing real evidence.
 
 ## Verification — 2026-08-18
 
-- `pytest -q tests tools/asset-indexer/tests`: **65 passed**;
+- `pytest -q tests tools/asset-indexer/tests`: **69 passed**;
 - Phase 04 universal UE static audit: **PASS**;
 - Phase 05 representative-family audit: **PASS**;
 - Phase 06 catalog/onboarding audit: **PASS**;
 - Phase 07 control-plane audit: **PASS**;
 - Phase 08 fidelity workflow audit: **PASS**;
 - Phase 08 Pass-02 capture/preflight audit: **PASS**;
+- Phase 08 Pass-03 working-copy/queue audit: **PASS**;
 - Python compileall: **PASS**;
 - catalog/data/bridge/research/browser-lab/control JS syntax: **PASS**;
 - localhost `/api/health`: **PASS**;
-- live durable capture-index POST/GET: **PASS**;
-- live durable fidelity-preflight POST/GET: **PASS**.
+- live durable capture-queue POST/GET: **PASS**;
+- live durable fidelity-prepare POST/GET: **PASS**.
 
 ## Current blockers / target-PC gates
 
@@ -98,31 +109,32 @@ Packaged fixture truth remains intentionally blocked because no real local captu
 - `WeaponLab.NotConfigured` — no compiled UE Weapon Lab executable here.
 - `Fidelity.CapturesMissing` — 44 reference + 44 candidate channels absent in this environment.
 - `Fidelity.PreflightBlocked` — 88 absent/invalid capture inputs.
-- `Fidelity.MissingInputs` — latest canonical run remains blocked by the same 88 missing inputs.
+- `Fidelity.CaptureQueuePending` — 10/10 canonical actions still need reference and candidate capture evidence.
+- `Fidelity.WorkingSetBlocked` — preflight is not ready, so no derived working files are produced.
 - Real UE UHT/UBT compile/runtime validation, real current-game reference capture and defensible thresholds remain target-PC work.
 
-## Exact next objective — Phase 08 Pass 03
+## Exact next objective — Phase 08 Pass 04
 
-1. Execute Pass-02 normalization plans **only into derived working-copy directories**.
-2. Preserve SHA-256 provenance from every derived output back to its original capture.
-3. Produce deterministic frame/audio/timeline alignment outputs suitable for the existing comparators.
-4. Add capture/scenario queue manifests so target-PC work can be resumed/retried per action.
-5. Surface queue/preparation state through the durable control plane.
-6. Never synthesize missing capture evidence and do not invent thresholds.
-7. Test/audit/checkpoint again before scorecard/calibration work.
+1. Build deterministic per-action/per-metric scorecard structures around existing comparator outputs.
+2. Add a persistent calibration-evidence ledger recording observed samples, environment/provenance and reviewer decisions.
+3. Add a calibration queue that clearly separates insufficient evidence from reviewable evidence.
+4. Never infer or invent acceptance thresholds from absent data; thresholds remain unset until defensible real calibration evidence exists.
+5. Surface scorecard/calibration state through the durable control plane.
+6. Keep Base Vandal → Reaver Vandal as the first end-to-end calibration target.
+7. Test/audit/checkpoint before broader fidelity scaling.
 
 ## Durable recovery / GitHub status
 
 Repository: `CyborPunk-2077/ValoVault`.
 
-Important correction: the current GitHub `main` direct file tree is **not yet a complete browsable mirror of the recovered source tree**. It contains handoff/checkpoint artifacts and the historical prototypes. Do not claim otherwise until a path/hash audit proves a complete direct-source mirror.
+Important correction: the current GitHub `main` direct file tree is **not yet a complete browsable mirror of the recovered source tree**. Do not claim otherwise until a path/hash audit proves a complete direct-source mirror.
 
-A deterministic GitHub recovery path is nevertheless preserved:
+Deterministic GitHub recovery path:
 
 1. recover the Phase-08 Pass-01 active-source checkpoint from `checkpoints/ValoVault_PHASE_08_PASS_01_GITHUB_SOURCE.tar.xz`;
-2. decode `checkpoints/phase-08-pass-02/ValoVault_PHASE_08_PASS_02.patch.xz.b64` with Base64;
-3. decompress XZ and apply the resulting Pass-02 patch to the Pass-01 tree;
-4. use this `CURRENT_STATE.md` as the exact continuation handoff;
-5. run the verification gate above before major edits.
+2. Base64-decode + XZ-decompress + apply `checkpoints/phase-08-pass-02/ValoVault_PHASE_08_PASS_02.patch.xz.b64`;
+3. Base64-decode + XZ-decompress + apply `checkpoints/phase-08-pass-03/ValoVault_PHASE_08_PASS_03.patch.xz.b64`;
+4. read this `CURRENT_STATE.md`;
+5. run the verification gate above before editing.
 
-The authoritative complete filesystem backup for this checkpoint is `ValoVault_PHASE_08_PASS_02_COMPLETE.zip`, SHA-256 `8f3b794ea63904bbc4302d8cb322bb6455dd4c935f0553f18ebdc228c6e42f72`.
+The authoritative complete filesystem backup for this checkpoint is `ValoVault_PHASE_08_PASS_03_COMPLETE.zip`, SHA-256 `33d81ec46e00b4eb80c8b25a58751c1be5fac8bb88e709a21f50c9bcecb32d13`.
