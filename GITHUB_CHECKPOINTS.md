@@ -60,18 +60,32 @@ GitHub is the durable execution/history/checkpoint index for ValoVault. The acti
 - Canonical complete checkpoint: `ValoVault_PHASE_08_PASS_09_COMPLETE.zip`
 - ChatGPT Library: `/ValoVault Checkpoints/ValoVault_PHASE_08_PASS_09_COMPLETE.zip`
 - SHA-256: `9f3ef8b3c90c55b9a8626285d2b7c2eda7eded2b9be77ad9d7058f354e850696`
-- ZIP files: **546**
-- Checkpoint-manifest entries: **545**
-- Package-manifest entries: **544**
-- ZIP CRC + every recorded manifest SHA/size: **PASS**
-- Verification: **110 tests passed**; Phase 04/05/06/07 + Phase 08 + Pass-02/03/04/05/06/07/08/09 audits PASS; Python/JS syntax PASS.
-- Added target-PC environment doctor, safe 74-file execution-kit plan/build/verify, safe non-proprietary return-package build/verify, and receiver verification feeding directly into Pass-08 reconciliation/local truth regeneration.
-- Live backend exposes only the non-mutating `target-pc-doctor` job plus doctor/execution-plan GETs. Package build endpoints deliberately return 404.
+- ZIP files: 546; checkpoint entries: 545; package entries: 544; CRC/manifest hashes PASS.
+- Verification: 110 tests; all audits through Pass 09; Python/JS syntax PASS.
+- Added environment doctor, safe execution-kit packaging, safe return packaging and receiver verification.
 - Actual proof execution kit: 74 files, SHA-256 `e0cbc509e6be773f999c76f391dcb98e0b3f4d577c61af88004ade203cf4a9d3`.
-- Actual proof safe return bundle: 15 manifested metadata files, SHA-256 `077411e4ed6fc764b34082fd651f1ed6522d3dd915c3b1b872cf224f85d3073d`.
-- Synthetic Windows-root two-machine round trip and local truth regeneration: PASS; capture/audio/model leakage rejection: PASS.
-- Fixture truth: environment doctor BLOCKED / 3 real target-machine blockers; execution kit plan READY / 74 / 0 violations; no real captures/assets; certification remains BLOCKED; canonical thresholds `{}`.
-- Next implementation prompt must be authored in chat. Current real gap: resumable target-PC session execution/receipt state machine, not broader premium scaling.
+- Actual proof safe return bundle: 15 metadata files, SHA-256 `077411e4ed6fc764b34082fd651f1ed6522d3dd915c3b1b872cf224f85d3073d`.
+
+## Phase 08 Pass 10 — 2026-08-18
+- Canonical complete checkpoint: `ValoVault_PHASE_08_PASS_10_COMPLETE.zip`
+- ChatGPT Library: `/ValoVault Checkpoints/ValoVault_PHASE_08_PASS_10_COMPLETE.zip`
+- SHA-256: `1bea8efb5eb4d329bdfed4777af0902651833cb3c5e0b1939df231b5dfa96d17`
+- ZIP files: **554**
+- Checkpoint-manifest entries: **553**
+- Package-manifest entries: **552**
+- ZIP CRC + every recorded manifest SHA/size: **PASS**
+- Verification: **118 pytest tests passed**; every audit from Phase 04 through Phase 08 Pass 10 PASS; Python/JS syntax PASS.
+- Added resumable target-PC session state machine and SHA-bound execution receipt.
+- Session plan: **10 target-PC steps / 2 MANUAL_EVIDENCE_REQUIRED steps / 9 receiver-only steps**.
+- Session identity is bound to handoff session ID, fidelity-spec SHA, execution-kit manifest SHA, machine identity and nonce.
+- Crash recovery: RUNNING → INTERRUPTED; explicit retry required; completed safe work is not replayed.
+- Manual evidence records owned evidence-root provenance/counts/bytes/directory SHA and never copies proprietary captures/assets.
+- Close is rejected until all required target steps complete; receipt is hash-bound safe metadata and proves workflow provenance only.
+- Pass-09 safe-return validates/includes a valid receipt when present; receiver still locally regenerates truth.
+- Backend/browser exposes only the non-mutating session plan/receipt views. Run-next, manual-evidence recording and session-close API probes return **404** as required.
+- Synthetic complete session → execution receipt → safe return → receiver verification: PASS; interruption/resume, stale spec/kit, incomplete close and receipt tamper rejection: PASS.
+- Fixture truth: no active session or receipt; no real captures/assets; environment doctor BLOCKED / 3; execution-kit plan READY / **77 files / 0 violations**; certification BLOCKED; canonical thresholds `{}`.
+- Next implementation direction must be chosen in the active chat. Recommended systemic next step: repair and prove the GitHub direct-source mirror before the first real Reaver run / Claude Code handoff.
 
 ## Strict authority split
 
