@@ -1,26 +1,33 @@
 # ValoVault GitHub Checkpoints
 
-GitHub is the durable continuation source for ValoVault. The newest verified checkpoint on `main`, together with root `CURRENT_STATE.md`, is authoritative.
+GitHub is the durable continuation index for ValoVault. Always read root `CURRENT_STATE.md` first.
 
-## Recovery procedure for a fresh coding agent
+## Phase 08 Pass 01
 
-1. Read root `CURRENT_STATE.md` first.
-2. Locate the newest checkpoint in `checkpoints/`.
-3. Verify its SHA-256 against this registry / `CURRENT_STATE.md`.
-4. Extract it into a clean working directory.
-5. Run the existing verification commands recorded in `CURRENT_STATE.md` before major edits.
-6. Continue from the exact next objective; do not replay older phases.
-
-## Checkpoints
-
-### Phase 08 Pass 01 — 2026-08-17
-
-- GitHub archive: `checkpoints/ValoVault_PHASE_08_PASS_01_GITHUB_SOURCE.tar.xz`
+- Active-source checkpoint: `checkpoints/ValoVault_PHASE_08_PASS_01_GITHUB_SOURCE.tar.xz`
 - SHA-256: `f814f36bd28528a35e2ef7fd87aec8a691a7f070cb2350d51948877ab7d607b7`
-- Active source files represented: 424 Git-trackable files at packaging time.
-- Full disaster-recovery ZIP (outside GitHub archive): `ValoVault_PHASE_08_PASS_01.zip`
-- Full ZIP SHA-256: `8ef331ec0a22413cc19295553ecc07eb7e4091b9a0dcf0960febcb3c4946500c`
-- Verification at checkpoint: 61 tests passed; Phase 04/05/06/07/08 audits passed.
-- Next objective: Phase 08 Pass 02 — capture-session manifests/indexing + normalization/alignment preflight.
+- Verification at checkpoint: 61 tests; Phase 04/05/06/07/08 audits passed.
 
-The GitHub source archive intentionally excludes redundant historical nested ZIPs and ignored local/proprietary/runtime/cache outputs. Those remain in the separately verified complete checkpoint ZIP. No active source code required for continuation is excluded.
+## Phase 08 Pass 02 — 2026-08-18
+
+- Exact source delta from Pass 01: `checkpoints/phase-08-pass-02/ValoVault_PHASE_08_PASS_02.patch.xz.b64`
+- Complete filesystem checkpoint supplied to the user: `ValoVault_PHASE_08_PASS_02_COMPLETE.zip`
+- Complete ZIP SHA-256: `8f3b794ea63904bbc4302d8cb322bb6455dd4c935f0553f18ebdc228c6e42f72`
+- Complete ZIP files: 458
+- ZIP CRC: PASS
+- Verification: 65 tests; Phase 04/05/06/07/08/08-pass02 audits passed; Python/JS syntax passed; localhost capture-index + fidelity-preflight durable job/API smoke passed.
+- Fixture truth: 0/44 reference and 0/44 candidate channels observed; preflight BLOCKED with 88 blockers and 0 destructive operations.
+- Next objective: Phase 08 Pass 03 — derived-working-copy normalization/alignment execution + capture/scenario queue orchestration.
+
+### Recover Pass 02 from GitHub
+
+1. Extract the Pass-01 active-source checkpoint.
+2. Base64-decode the Pass-02 `.patch.xz.b64` file.
+3. XZ-decompress it to a unified patch.
+4. Apply that patch to the Pass-01 project tree.
+5. Read root `CURRENT_STATE.md`.
+6. Run the recorded verification gate before editing.
+
+## Remote direct-source mirror warning
+
+The current `main` direct file tree is **not yet a proven complete browsable mirror of the recovered source tree**. The checkpoint artifacts above are the deterministic GitHub recovery path until a full path/hash audit proves otherwise. Do not silently treat the prototype-only/root handoff tree as the whole project.
