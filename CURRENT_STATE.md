@@ -1,140 +1,137 @@
 # ValoVault — CURRENT STATE
 
-**Canonical development checkpoint:** Phase 08 in progress — **Pass 03 complete and verified**  
+**Canonical development checkpoint:** Phase 08 in progress — **Pass 04 complete and verified**  
 **Checkpoint date:** 2026-08-18  
-**Next objective:** Phase 08 Pass 04 — metric scorecards + calibration evidence ledger/queue, with no automatic or invented thresholds.
+**Next objective:** Phase 08 Pass 05 — calibration cohorts/distribution summaries + explicit human threshold-decision packets, with no automatic threshold application.
 
 ## Continuation rule
 
-ValoVault is mid-development. Do **not** restart it, replay completed phases, or redesign established architecture merely because older snapshots exist. Continue from the newest verified checkpoint. Classification, planned runtime bindings, preview media and research do **not** imply realtime readiness or fidelity.
+ValoVault is mid-development. Do **not** restart it, replay completed phases, or redesign established architecture because older snapshots exist. Continue from the newest verified checkpoint. Classification, planned runtime bindings, preview media and research do **not** imply realtime readiness or fidelity.
 
 Permanent loop: **inspect → implement → test → fix → verify → update CURRENT_STATE.md → complete ZIP/GitHub checkpoint → continue**.
 
-## Canonical architecture
+## Preserved architecture / truth boundaries
 
-- `apps/catalog/` — local-first searchable VALORANT catalog and realtime model path when a validated local model exists.
-- `apps/lab/` — browser Weapon Lab / fallback realtime integration surface.
-- `apps/control/` — durable local control-plane UI.
-- `tools/backend/server.py` — single localhost backend/static server and durable workflow API.
-- `tools/pipeline/` — FModel / ValorantPorting / Blender export/conversion flow.
-- `tools/asset-indexer/` — local export discovery, provenance and readiness evidence.
-- `tools/catalog/` + `tools/classifier/` — patch-aware catalog normalization, conservative classification/onboarding, family/theme research propagation, knowledge graph and research worklists.
-- `tools/manifest/` + `data/onboarding/` — manifests/import plans/planned runtime bindings. Planned is not validated.
-- `data/skin-recipes/` + `tools/recipes/` — reusable premium-family technical capability recipes.
-- `unreal/WeaponLab/` — UE5 high-fidelity first-person target.
-- `tools/fidelity/` + `reference/` + `data/scenarios/` — fidelity lab, comparators, Reaver Vandal reference-action contracts and Phase-08 orchestration.
+- local-first catalog + asset pipeline;
+- `apps/catalog/`, browser `apps/lab/`, and operational `apps/control/`;
+- unified local backend `tools/backend/server.py`;
+- FModel / ValorantPorting / Blender local extraction/conversion pipeline;
+- conservative classification/onboarding and research intelligence;
+- UE5 `unreal/WeaponLab/` as high-fidelity authority;
+- Base Vandal → Reaver Vandal as the first premium vertical slice;
+- proprietary realtime assets remain local and are never bundled/claimed READY merely from metadata;
+- fidelity evidence is immutable source material; derived working copies retain SHA-256 provenance;
+- offline/local work only; never interact with a running VALORANT process, Vanguard, protected memory, or multiplayer traffic.
 
-## Preserved decisions
+## Phase 08 Passes 01–03 — complete
 
-- Local-first; proprietary realtime assets come from the user's own local export workflow and are not bundled as public assets.
-- No fake `READY` state.
-- No PNG-transform pseudo-3D as the final inspector.
-- UE5 remains the high-fidelity authority; browser lab is inspection/POC/fallback.
-- Base Vandal → Reaver Vandal remains the first premium vertical-slice sequence.
-- Family/theme evidence may propagate only with conflict guardrails.
-- Offline/local asset work only; never interact with running VALORANT, Vanguard, protected memory or multiplayer traffic.
-- Fidelity evidence is immutable source material. Derived working copies must retain SHA-256 provenance to originals.
+Pass 01 added versioned deterministic fidelity-run orchestration around the existing frame/event/audio/anchor/recoil/weapon-metric comparators, explicit missing-input blocking, SHA-256 provenance, durable `fidelity-run` jobs, and no default thresholds.
 
-## Completed through Phase 07
+Pass 02 added observed reference/candidate capture manifests/indexing and non-destructive normalization/alignment preflight. The packaged fixture has 0/44 reference and 0/44 candidate channels and preflight is truthfully BLOCKED by 88 missing inputs.
 
-Recovered foundation + Backend Build v2, asset indexing/manifests, Windows integration progression, universal UE runtime scaffold, representative premium-family recipes, catalog-scale classification/onboarding/research intelligence, browser→local catalog sync, and the durable Phase-07 control plane are preserved.
+Pass 03 added resumable per-action capture/scenario queues and immutable-provenance derived working-set preparation. The fixture has 10 pending actions, all `NEED_BOTH`, and the working set is BLOCKED with 0 copied files.
 
-## Phase 08 Pass 01 — complete
-
-- versioned fidelity-run schema;
-- Reaver Vandal 10-action canonical run spec;
-- deterministic orchestration of existing frame/event/audio/anchor/recoil/weapon-metric tools;
-- SHA-256 input provenance;
-- explicit `BLOCKED` result for missing captures;
-- machine-readable `run.json` + `summary.html`;
-- durable `fidelity-run` backend job + `/api/control/fidelity/latest`;
-- no invented calibration thresholds.
-
-## Phase 08 Pass 02 — complete
-
-- observed reference/candidate capture-session manifests and canonical capture index;
-- deterministic, non-destructive normalization/alignment preflight;
-- durable `capture-index` and `fidelity-preflight` jobs + control APIs/UI stages;
-- original captures are never mutated;
-- packaged no-capture fixture: 0/44 reference + 0/44 candidate channels, preflight `BLOCKED` with 88 blockers and zero destructive operations.
-
-## Phase 08 Pass 03 — complete
+## Phase 08 Pass 04 — complete
 
 Added:
 
-- `packages/shared-schema/capture-queue.schema.json`;
-- `packages/shared-schema/fidelity-working-set.schema.json`;
-- `tools/fidelity/capture_queue.py`;
-- `tools/fidelity/prepare_working_copy.py`;
-- canonical `data/control-plane/capture-queue.json`;
-- canonical `data/control-plane/fidelity-working-set.json`;
-- durable jobs `capture-queue` and `fidelity-prepare`;
-- GET `/api/control/capture-queue` and `/api/control/fidelity/working-set`;
-- POST `/api/control/capture-queue` and `/api/control/fidelity-prepare`;
-- capture/scenario queue + derived-working-set control-plane stages/blockers;
-- deterministic derived working-copy preparation with source/derived SHA-256 provenance;
-- unsupported transforms block rather than silently approximating temporal/FPS/resolution/audio normalization.
+- `packages/shared-schema/fidelity-scorecards.schema.json`;
+- `packages/shared-schema/calibration-evidence-ledger.schema.json`;
+- `packages/shared-schema/calibration-queue.schema.json`;
+- `tools/fidelity/metric_contracts.py` — comparator metric semantics only; **not thresholds**;
+- `tools/fidelity/build_scorecards.py` — per-action/per-channel raw scorecards;
+- `tools/fidelity/calibration_ledger.py` — deterministic/deduplicated measurement evidence + explicit review state;
+- `tools/fidelity/calibration_queue.py` — metric-level states `NEEDS_MEASUREMENT`, `NEEDS_REVIEW`, `READY_FOR_HUMAN_DECISION`, `THRESHOLD_DEFINED`;
+- canonical `data/control-plane/fidelity-scorecards.json`;
+- canonical `data/calibration/evidence-ledger.json`;
+- canonical `data/control-plane/calibration-queue.json`;
+- durable jobs/APIs `fidelity-scorecards`, `calibration-evidence`, `calibration-queue`;
+- control-plane scorecard/evidence/calibration stages and blockers;
+- latent Pass-02/03 backend error-path bug fixed: undefined `_fail_job` calls now use durable `_finish_job(..., error=...)`.
 
-Packaged fixture truth:
+### Pass-04 truth state
 
-- reference observed channels: **0 / 44**;
-- candidate observed channels: **0 / 44**;
-- preflight verdict: **BLOCKED** with **88** blockers;
-- capture/scenario queue: **10 actions**, **10 pending**, **0 ready**, all **NEED_BOTH**;
-- derived working-set verdict: **BLOCKED**;
-- derived copied files: **0**;
-- fidelity run remains **BLOCKED** by missing real evidence.
+The no-capture fixture remains deliberately uncalibrated:
+
+- scorecard actions: **10**;
+- scorecard channel slots: **44**;
+- measured channels: **0**;
+- observed calibration metrics: **0**;
+- aggregate score: **null**;
+- evidence ledger entries: **0**;
+- calibration metric items: **88**;
+- pending calibration items: **88**, all `NEEDS_MEASUREMENT`;
+- thresholds defined: **0**;
+- automatic thresholds/proposals created: **0**;
+- canonical Reaver spec still has `thresholds: {}`;
+- fidelity run remains **BLOCKED** by 88 missing local reference/candidate inputs.
+
+Scorecards expose raw measurements only. Metric direction/unit semantics are not acceptance thresholds. Evidence collection never creates thresholds. The calibration queue may eventually mark reviewed evidence `READY_FOR_HUMAN_DECISION`, but it never derives or writes a threshold automatically.
 
 ## Verification — 2026-08-18
 
-- `pytest -q tests tools/asset-indexer/tests`: **69 passed**;
+- `pytest -q tests tools/asset-indexer/tests`: **75 passed**;
 - Phase 04 universal UE static audit: **PASS**;
 - Phase 05 representative-family audit: **PASS**;
 - Phase 06 catalog/onboarding audit: **PASS**;
 - Phase 07 control-plane audit: **PASS**;
 - Phase 08 fidelity workflow audit: **PASS**;
 - Phase 08 Pass-02 capture/preflight audit: **PASS**;
-- Phase 08 Pass-03 working-copy/queue audit: **PASS**;
+- Phase 08 Pass-03 working-set/queue audit: **PASS**;
+- Phase 08 Pass-04 scorecard/calibration audit: **PASS**;
 - Python compileall: **PASS**;
 - catalog/data/bridge/research/browser-lab/control JS syntax: **PASS**;
 - localhost `/api/health`: **PASS**;
-- live durable capture-queue POST/GET: **PASS**;
-- live durable fidelity-prepare POST/GET: **PASS**.
+- live durable `fidelity-scorecards` POST/job/GET: **PASS**;
+- live durable `calibration-evidence` POST/job/GET: **PASS**;
+- live durable `calibration-queue` POST/job/GET: **PASS**;
+- finished job history cleared; active jobs: **0**.
 
 ## Current blockers / target-PC gates
 
-- `ExportRoots.NotConfigured` — no real FModel/ValorantPorting/Blender export roots here.
-- `Classification.ResearchQueue` — 2 fixture classifications still require evidence.
-- `Blender.NotConfigured`.
-- `WeaponLab.NotConfigured` — no compiled UE Weapon Lab executable here.
-- `Fidelity.CapturesMissing` — 44 reference + 44 candidate channels absent in this environment.
-- `Fidelity.PreflightBlocked` — 88 absent/invalid capture inputs.
-- `Fidelity.CaptureQueuePending` — 10/10 canonical actions still need reference and candidate capture evidence.
-- `Fidelity.WorkingSetBlocked` — preflight is not ready, so no derived working files are produced.
-- Real UE UHT/UBT compile/runtime validation, real current-game reference capture and defensible thresholds remain target-PC work.
+- `ExportRoots.NotConfigured`;
+- `Classification.ResearchQueue` — 2 fixture classifications still need evidence;
+- `Blender.NotConfigured`;
+- `WeaponLab.NotConfigured`;
+- `Fidelity.CapturesMissing` — all 44 reference + 44 candidate channel inputs absent here;
+- `Fidelity.PreflightBlocked` — 88 capture/input blockers;
+- `Fidelity.CaptureQueuePending` — 10 canonical actions need both sides;
+- `Fidelity.WorkingSetBlocked`;
+- `Fidelity.ScorecardsUnmeasured` — no comparator metrics exist, so no score may be synthesized;
+- `Fidelity.CalibrationQueuePending` — 88 metric-level calibration decisions await real evidence;
+- `Fidelity.MissingInputs` — latest run blocked by the same 88 missing inputs.
 
-## Exact next objective — Phase 08 Pass 04
+Real UE UHT/UBT/runtime validation, real current-game reference capture, and defensible threshold selection remain target-PC work.
 
-1. Build deterministic per-action/per-metric scorecard structures around existing comparator outputs.
-2. Add a persistent calibration-evidence ledger recording observed samples, environment/provenance and reviewer decisions.
-3. Add a calibration queue that clearly separates insufficient evidence from reviewable evidence.
-4. Never infer or invent acceptance thresholds from absent data; thresholds remain unset until defensible real calibration evidence exists.
-5. Surface scorecard/calibration state through the durable control plane.
-6. Keep Base Vandal → Reaver Vandal as the first end-to-end calibration target.
-7. Test/audit/checkpoint before broader fidelity scaling.
+## Exact next objective — Phase 08 Pass 05
+
+1. Group **accepted** evidence into provenance-locked cohorts by action/channel/metric and comparable capture conditions.
+2. Compute descriptive distributions only when real reviewed evidence exists.
+3. Keep sample statistics separate from fidelity acceptance thresholds.
+4. Generate human-review threshold-decision packets that cite exact evidence IDs/cohorts/distributions.
+5. Require an explicit reviewed decision before producing any threshold patch artifact.
+6. Never apply a threshold patch automatically to the canonical Reaver spec.
+7. Surface cohort/decision readiness through the durable control plane.
+8. Keep the no-capture fixture at zero evidence and zero threshold proposals.
+9. Test/audit/checkpoint before broader premium-skin fidelity scaling.
 
 ## Durable recovery / GitHub status
 
 Repository: `CyborPunk-2077/ValoVault`.
 
-Important correction: the current GitHub `main` direct file tree is **not yet a complete browsable mirror of the recovered source tree**. Do not claim otherwise until a path/hash audit proves a complete direct-source mirror.
+**Important:** the current GitHub `main` direct file tree is still **not yet proven to be a complete browsable mirror** of the recovered source tree. Do not claim otherwise until a path/hash audit proves it.
 
 Deterministic GitHub recovery path:
 
-1. recover the Phase-08 Pass-01 active-source checkpoint from `checkpoints/ValoVault_PHASE_08_PASS_01_GITHUB_SOURCE.tar.xz`;
-2. Base64-decode + XZ-decompress + apply `checkpoints/phase-08-pass-02/ValoVault_PHASE_08_PASS_02.patch.xz.b64`;
-3. Base64-decode + XZ-decompress + apply `checkpoints/phase-08-pass-03/ValoVault_PHASE_08_PASS_03.patch.xz.b64`;
-4. read this `CURRENT_STATE.md`;
-5. run the verification gate above before editing.
+1. extract `checkpoints/ValoVault_PHASE_08_PASS_01_GITHUB_SOURCE.tar.xz`;
+2. Base64-decode + XZ-decompress + `git apply` the Pass-02 patch;
+3. apply the Pass-03 patch the same way;
+4. apply `checkpoints/phase-08-pass-04/ValoVault_PHASE_08_PASS_04.patch.xz.b64` the same way;
+5. read this `CURRENT_STATE.md`;
+6. run the verification gate before major editing.
 
-The authoritative complete filesystem backup for this checkpoint is `ValoVault_PHASE_08_PASS_03_COMPLETE.zip`, SHA-256 `33d81ec46e00b4eb80c8b25a58751c1be5fac8bb88e709a21f50c9bcecb32d13`.
+The Pass-04 patch was independently test-applied to a fresh Pass-03 tree and produced a **path/hash-identical 482-file Pass-04 tree**.
+
+Authoritative complete filesystem backup: `ValoVault_PHASE_08_PASS_04_COMPLETE.zip`  
+SHA-256: `7390f9c42d0cca55cf1066f480b4f4090c51f825af6095c0c745215133476e85`  
+ZIP files: **482**; manifest entries: **481**; CRC/hash verification: **PASS**.
