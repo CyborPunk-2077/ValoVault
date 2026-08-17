@@ -1,151 +1,99 @@
 # ValoVault — CURRENT STATE
 
-**Canonical development checkpoint:** Phase 08 in progress — **Pass 05 complete and verified**  
-**Checkpoint date:** 2026-08-18  
-**Next objective:** Phase 08 Pass 06 — reviewed threshold-patch validation/application governance + calibrated replay planning, while keeping the packaged no-capture fixture threshold-free.
+**Canonical checkpoint:** Phase 08 in progress — **Pass 06 complete and verified**  
+**Date:** 2026-08-18  
+**Next objective:** Phase 08 Pass 07 — explicit threshold-version promotion governance + reproducible target-PC calibration/replay certification handoff for the Base Vandal → Reaver Vandal vertical slice.
 
-## Continuation rule
+## Strict continuation authority
 
-ValoVault is mid-development. Do **not** restart it, replay completed phases, or redesign established architecture because older snapshots exist. Continue from this newest verified checkpoint.
+- **The active ValoVault chat owns roadmap reasoning, improvements, phase sequencing and the exact next implementation/master prompt.**
+- **GitHub owns durable source/history/checkpoint metadata/milestones.**
+- This file is the concise recovery handoff, not the whole product-strategy context.
+- Before every substantial pass, formulate the canonical prompt in chat first, then execute it against the newest verified checkpoint.
+- Never restart completed phases because an older snapshot exists.
 
-Permanent loop: **inspect → implement → test → fix → verify → update CURRENT_STATE.md → complete ZIP/GitHub checkpoint → continue**.
+Permanent loop: **inspect → implement → test → fix → verify → update CURRENT_STATE.md → complete ZIP/Git checkpoint → continue**.
 
-Truth boundary: **classification ≠ local assets ≠ runtime readiness ≠ fidelity**. Planned bindings, previews, classifications and descriptive calibration statistics do not imply `READY`, fidelity PASS, or a valid acceptance threshold.
+Truth boundary: **classification ≠ assets ≠ runtime readiness ≠ fidelity ≠ calibrated promotion**.
 
-## Architecture / product decisions to preserve
+## Architecture that must remain intact
 
-- Local-first VALORANT catalog and local asset pipeline.
-- `apps/catalog/` catalog, `apps/lab/` browser Weapon Lab/fallback, `apps/control/` operational control plane.
-- `tools/backend/server.py` unified localhost backend.
-- FModel / ValorantPorting / Blender local export/conversion workflow.
-- UE5 `unreal/WeaponLab/` remains the high-fidelity authority.
-- Base Vandal → Reaver Vandal remains the first premium vertical slice.
-- Proprietary realtime assets remain local; repository state never fabricates asset readiness.
-- Fidelity source evidence is immutable; derived working copies retain SHA-256 provenance.
-- Never interact with a running VALORANT process, Vanguard, protected memory, or multiplayer traffic.
+Local-first catalog; FModel/ValorantPorting/Blender local export pipeline; browser Weapon Lab fallback; UE5 `unreal/WeaponLab/` as high-fidelity authority; Base Vandal → Reaver Vandal as first premium vertical slice; immutable capture evidence + derived SHA provenance; no fake READY; no interaction with running VALORANT/Vanguard/protected memory/multiplayer traffic.
 
-## Phase 08 passes completed
+## Phase 08 status
 
-### Pass 01 — deterministic fidelity run
+Passes 01–05 remain complete: deterministic fidelity orchestration; capture-session/preflight; resumable capture queue + derived working set; raw scorecards/evidence/calibration queue; ACCEPTED-evidence cohorts + explicit human threshold-decision packets.
 
-Versioned Reaver Vandal 10-action orchestration around existing comparators, input SHA provenance, explicit missing-input blocking, durable `fidelity-run`, and default `thresholds: {}`.
+### Pass 06 — complete
 
-### Pass 02 — capture sessions + preflight
+Added reviewed-threshold governance and calibrated replay safety:
 
-Observed reference/candidate capture manifests/index plus non-destructive normalization/alignment preflight. Packaged fixture: **0/44 reference + 0/44 candidate channels**, preflight `BLOCKED` with **88** blockers.
+- `tools/fidelity/threshold_governance.py`
+- `tools/fidelity/threshold_application.py`
+- `tools/fidelity/calibrated_replay.py`
+- threshold-governance/application/replay schemas and canonical ledgers/plans
+- durable jobs: `threshold-governance`, `threshold-application-plan`, `calibrated-replay-plan`
+- GET APIs for governance/application preview/application ledger/calibrated replay
+- POST APIs only for the three **non-mutating** jobs
+- control UI actions: `VALIDATE THRESHOLDS`, `PREVIEW APPLICATION`, `PLAN CALIBRATED REPLAY`
+- deliberately **no** `/api/control/threshold-apply` endpoint
 
-### Pass 03 — resumable capture queue + derived working set
+Reviewed patches are validated against exact spec SHA, reviewer/rationale, finite rules, action/channel/metric contracts, ACCEPTED evidence and matching provenance-locked cohorts.
 
-10-action resumable capture/scenario queue and derived-working-copy preparation. Packaged fixture: **10 pending / 0 ready / all NEED_BOTH**, working set `BLOCKED`, **0 copied files**.
+The control-plane application preview is token-free and non-mutating. Explicit application is CLI-only: a one-time token is bound to the exact plan; a byte-for-byte spec backup is created before modification; stale or consumed plans are rejected; only reviewed action-local thresholds change; rollback requires reviewer+rationale and restores the verified backup.
 
-### Pass 04 — raw scorecards + evidence ledger + calibration queue
+Calibrated replay recognizes only an active non-rolled-back `APPLIED_FOR_REPLAY` event with the exact applied spec SHA and a provenance-locked READY working set. Replay measurement never auto-promotes thresholds.
 
-Raw per-action/per-channel metric scorecards, immutable/deduplicated evidence observations with review state, and metric-level calibration queue. No vanity aggregate score or automatic threshold creation.
+## Packaged fixture truth
 
-### Pass 05 — provenance cohorts + human threshold decisions
+- catalog: 17 skins; research blockers: 2
+- local realtime asset matches / Web3D ready / Unreal validated: 0 / 0 / 0
+- capture channels: 0/44 reference + 0/44 candidate
+- preflight: BLOCKED / 88 blockers
+- capture queue: 10 pending / 0 ready
+- fidelity run: BLOCKED / 88 missing inputs
+- scorecard observed metrics: 0; aggregate score: null
+- calibration evidence: 0; calibration queue: 88 NEEDS_MEASUREMENT
+- accepted cohorts: 0
+- threshold decision packets: 88 NO_ACCEPTED_EVIDENCE
+- numeric threshold suggestions: 0
+- reviewed threshold patches bundled: 0
+- governance reviewed/invalid/stale: 0/0/0
+- application preview: `NO_REVIEWED_PATCH`, 0 operations, applicationAllowed=false
+- active threshold applications: 0; backups bundled: 0
+- calibrated replay: `NO_APPLIED_THRESHOLD_VERSION`, replayAllowed=false, promotionAllowed=false
+- canonical Reaver root/action thresholds: `{}` / none
+- active jobs: 0
 
-Added:
+## Verification
 
-- `tools/fidelity/calibration_cohorts.py`;
-- `tools/fidelity/threshold_decision_packets.py`;
-- `tools/fidelity/create_threshold_patch.py`;
-- schemas `calibration-cohorts`, `threshold-decision-packets`, `reviewed-threshold-patch`;
-- `data/control-plane/calibration-cohorts.json`;
-- `data/control-plane/threshold-decision-packets.json`;
-- optional capture-condition propagation from scorecards into the calibration ledger;
-- durable jobs `calibration-cohorts` and `threshold-decision-packets`;
-- GET `/api/control/calibration/cohorts` and `/api/control/calibration/decisions`;
-- POST `/api/control/calibration-cohorts` and `/api/control/threshold-decision-packets`;
-- control-plane cohort/threshold-decision stages, summaries and blockers;
-- control UI actions `BUILD COHORTS` and `BUILD DECISION PACKETS`.
+- **89 pytest tests passed** (`tests` + `tools/asset-indexer/tests`)
+- Phase 04, 05, 06, 07, Phase 08 and Pass-02/03/04/05/06 audits: PASS
+- Python compileall: PASS
+- catalog/data/bridge/research/browser-lab/control JS syntax: PASS
+- localhost threshold-governance job/API: PASS
+- localhost threshold-application-plan preview job/API: PASS
+- localhost calibrated-replay-plan job/API: PASS
+- POST `/api/control/threshold-apply`: **404 as required**
+- valid reviewed patch → preview → wrong-token rejection → backup → apply → replay blocked/ready/measured → duplicate-use rejection → byte-exact rollback: PASS
+- stale spec / unaccepted evidence / missing cohort provenance / invalid rule rejection: PASS
 
-Cohorts include only **ACCEPTED** evidence and are grouped by action/channel/metric + capture-condition fingerprint. They expose descriptive distributions and a provenance-lock SHA. Descriptive distributions are explicitly **not acceptance thresholds**.
+## Exact next direction — Phase 08 Pass 07
 
-Threshold-decision packets cite cohort/evidence/provenance data but always have `suggestedThreshold: null`. When real reviewed evidence exists they may become `HUMAN_DECISION_REQUIRED`; they do not choose a rule.
+The active chat must produce the full Pass-07 prompt before implementation. Intended scope: explicit replay-bound threshold **promotion governance**, immutable threshold-policy version registry/retirement history, and a reproducible target-PC calibration/replay/certification handoff for the 10-action Reaver vertical slice. A machine-readable vertical-slice certification gate must remain BLOCKED in this no-assets/no-captures fixture. Broader premium-skin scaling remains blocked until Reaver has real local asset/runtime/fidelity evidence.
 
-`create_threshold_patch.py` requires an explicit reviewer, rationale, finite numeric min/max rule, and matching ACCEPTED evidence IDs. It emits a `REVIEWED_NOT_APPLIED` artifact and **never edits the canonical fidelity spec**.
+## Durable checkpoint
 
-## Packaged fixture truth after Pass 05
+Authoritative complete filesystem checkpoint:
 
-- catalog skins: **17**;
-- research-blocked classifications: **2**;
-- local matched realtime asset manifests: **0**;
-- browser/Web 3D ready: **0**;
-- Unreal validated bindings: **0**;
-- reference capture channels observed: **0 / 44**;
-- candidate capture channels observed: **0 / 44**;
-- preflight: **BLOCKED / 88 blockers**;
-- capture queue: **10 pending / 0 ready**;
-- fidelity run: **BLOCKED / 88 missing inputs**;
-- scorecard observed metrics: **0**;
-- aggregate score: **null**;
-- calibration evidence entries: **0**;
-- calibration queue: **88 pending / all NEEDS_MEASUREMENT**;
-- accepted-evidence cohorts: **0**;
-- threshold-decision packets: **88 / all NO_ACCEPTED_EVIDENCE**;
-- numeric threshold suggestions: **0**;
-- reviewed threshold patches bundled: **0**;
-- explicit/default Reaver thresholds: **0 / `{}`**;
-- active durable jobs at checkpoint: **0**.
-
-## Verification — 2026-08-18
-
-- `pytest -q tests tools/asset-indexer/tests`: **84 passed**;
-- Phase 04 universal UE static audit: **PASS**;
-- Phase 05 representative-family audit: **PASS**;
-- Phase 06 catalog/onboarding audit: **PASS**;
-- Phase 07 control-plane audit: **PASS**;
-- Phase 08 fidelity workflow audit: **PASS**;
-- Phase 08 Pass-02 audit: **PASS**;
-- Phase 08 Pass-03 audit: **PASS**;
-- Phase 08 Pass-04 audit: **PASS**;
-- Phase 08 Pass-05 audit: **PASS**;
-- Python compileall: **PASS**;
-- catalog/data/bridge/research/browser-lab/control JavaScript syntax: **PASS**;
-- localhost `calibration-cohorts` durable POST/job/GET: **PASS**;
-- localhost `threshold-decision-packets` durable POST/job/GET: **PASS**;
-- reviewed threshold-patch test proves canonical spec stays byte-for-byte unchanged: **PASS**.
-
-## Current blockers / target-PC gates
-
-- `ExportRoots.NotConfigured`;
-- `Classification.ResearchQueue` — 2 fixture classifications require evidence;
-- `Blender.NotConfigured`;
-- `WeaponLab.NotConfigured`;
-- `Fidelity.CapturesMissing`;
-- `Fidelity.PreflightBlocked`;
-- `Fidelity.CaptureQueuePending`;
-- `Fidelity.WorkingSetBlocked`;
-- `Fidelity.ScorecardsUnmeasured`;
-- `Fidelity.CalibrationQueuePending`;
-- `Fidelity.CalibrationCohortsEmpty`;
-- `Fidelity.ThresholdDecisionPending`;
-- `Fidelity.MissingInputs`.
-
-Real UE UHT/UBT/runtime validation, current-game reference capture, capture-condition review, and defensible human threshold selection remain target-PC work.
-
-## Exact next objective — Phase 08 Pass 06
-
-1. Add a versioned reviewed-threshold decision/application ledger separate from measurement evidence.
-2. Validate `REVIEWED_NOT_APPLIED` patch artifacts against canonical spec SHA, accepted evidence IDs and reviewer provenance.
-3. Build an explicit **application preview/plan** that shows exact threshold changes and rollback data without mutating the canonical spec.
-4. If an application command is added, require an explicit review/confirmation token and make a backed-up/reversible operation; never auto-apply from cohort statistics or decision packets.
-5. Add calibrated replay planning so a reviewed threshold version can be rerun against the same provenance-locked working set before being promoted.
-6. Keep the packaged fixture at **zero reviewed patches and `thresholds: {}`**.
-7. Surface review/application readiness through the durable control plane.
-8. Test/audit/checkpoint again before any broader premium-skin fidelity scaling.
-
-## Durable recovery / GitHub / chat authority
+- `ValoVault_PHASE_08_PASS_06_COMPLETE.zip`
+- SHA-256: `cad9769249e4131cfd4ebe13bb371f0aa9e2db76f58a3cc3cbda720579532518`
+- ZIP files: 509
+- checkpoint manifest entries: 508
+- package manifest entries: 507
+- CRC + manifest hashes: PASS
+- ChatGPT Library: `/ValoVault Checkpoints/ValoVault_PHASE_08_PASS_06_COMPLETE.zip`
 
 Repository: `CyborPunk-2077/ValoVault`.
 
-**Authority split:** the active ValoVault chat owns roadmap reasoning, improvement choices, phase sequencing and the canonical next implementation prompt. GitHub owns durable code/history/checkpoints. This file is the concise recovery handoff, not the entire product-strategy context.
-
-The GitHub `main` direct file tree is **not yet proven to be a complete browsable mirror** of the recovered source tree. Do not claim otherwise until a complete path/hash audit proves it.
-
-For the exact Pass-05 filesystem state, prefer the complete verified checkpoint persisted in the user's ChatGPT Library:
-
-- Library path: `/ValoVault Checkpoints/ValoVault_PHASE_08_PASS_05_COMPLETE.zip`
-- expected SHA-256 is recorded in `GITHUB_CHECKPOINTS.md`
-
-GitHub remains the durable handoff/history layer and has deterministic recovery through Pass 04. Pass-05 patch transport must not be claimed complete until its GitHub artifact is independently hash-verified. A fresh chat should recover the newest complete checkpoint, read this file + `VALOVAULT_OPERATING_RULE.md`, preserve the established architecture/product intent, formulate the next canonical prompt in chat, then continue.
+**Remote warning:** GitHub `main` is still not proven to be a complete path/hash mirror of the full recovered filesystem. GitHub remains the durable history/handoff layer, while the verified complete ZIP is the authoritative disaster-recovery filesystem checkpoint until a full direct-tree audit proves otherwise.
