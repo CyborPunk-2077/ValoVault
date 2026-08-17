@@ -52,18 +52,26 @@ GitHub is the durable execution/history/checkpoint index for ValoVault. The acti
 - Canonical complete checkpoint: `ValoVault_PHASE_08_PASS_08_COMPLETE.zip`
 - ChatGPT Library: `/ValoVault Checkpoints/ValoVault_PHASE_08_PASS_08_COMPLETE.zip`
 - SHA-256: `51f926369649e070b1b6efcfd3f3eb69261b3f1dfdbfe65516ea964aec5b7952`
-- ZIP files: **536**
-- Checkpoint-manifest entries: **535**
-- Package-manifest entries: **534**
+- ZIP files: 536; checkpoint entries: 535; package entries: 534; CRC/manifest hashes PASS.
+- Verification: 104 tests; all audits through Pass 08; Python/JS syntax PASS.
+- Added portable target-PC return manifest/rebinding/reconciliation and local truth regeneration.
+
+## Phase 08 Pass 09 — 2026-08-18
+- Canonical complete checkpoint: `ValoVault_PHASE_08_PASS_09_COMPLETE.zip`
+- ChatGPT Library: `/ValoVault Checkpoints/ValoVault_PHASE_08_PASS_09_COMPLETE.zip`
+- SHA-256: `9f3ef8b3c90c55b9a8626285d2b7c2eda7eded2b9be77ad9d7058f354e850696`
+- ZIP files: **546**
+- Checkpoint-manifest entries: **545**
+- Package-manifest entries: **544**
 - ZIP CRC + every recorded manifest SHA/size: **PASS**
-- Verification: **104 tests passed**; Phase 04/05/06/07 + Phase 08 + Pass-02/03/04/05/06/07/08 audits PASS; Python/JS syntax PASS.
-- Added portable target-PC return manifest, explicit path semantics, reviewed CLI-only root bindings, artifact/session/spec/hash/action/channel reconciliation, stale `/mnt/data` and moved-Windows-root handling, proprietary transport guardrails, and remote truth rejection.
-- Root overrides allow capture index → queue → preflight → working set to be regenerated from local observation after valid reconciliation.
-- Live backend `target-pc-return-reconcile` job/API and GET manifest/reconciliation endpoints PASS.
-- Safety: `/api/control/target-pc-return-bindings` returns **404**; persistent root approvals are explicit CLI reviewer actions only.
-- Synthetic Windows `D:\\...` evidence roots rebased to a new local root with preserved hashes/provenance and locally regenerated truth: PASS.
-- Fixture truth: return artifacts 0; reconciliation `BLOCKED / 2 blockers`; captures still absent; certification BLOCKED; canonical thresholds `{}`.
-- Next objective: **Phase 08 Pass 09 — portable target-PC execution bundle + environment doctor + safe return-package assembly**, still Reaver-only.
+- Verification: **110 tests passed**; Phase 04/05/06/07 + Phase 08 + Pass-02/03/04/05/06/07/08/09 audits PASS; Python/JS syntax PASS.
+- Added target-PC environment doctor, safe 74-file execution-kit plan/build/verify, safe non-proprietary return-package build/verify, and receiver verification feeding directly into Pass-08 reconciliation/local truth regeneration.
+- Live backend exposes only the non-mutating `target-pc-doctor` job plus doctor/execution-plan GETs. Package build endpoints deliberately return 404.
+- Actual proof execution kit: 74 files, SHA-256 `e0cbc509e6be773f999c76f391dcb98e0b3f4d577c61af88004ade203cf4a9d3`.
+- Actual proof safe return bundle: 15 manifested metadata files, SHA-256 `077411e4ed6fc764b34082fd651f1ed6522d3dd915c3b1b872cf224f85d3073d`.
+- Synthetic Windows-root two-machine round trip and local truth regeneration: PASS; capture/audio/model leakage rejection: PASS.
+- Fixture truth: environment doctor BLOCKED / 3 real target-machine blockers; execution kit plan READY / 74 / 0 violations; no real captures/assets; certification remains BLOCKED; canonical thresholds `{}`.
+- Next implementation prompt must be authored in chat. Current real gap: resumable target-PC session execution/receipt state machine, not broader premium scaling.
 
 ## Strict authority split
 
