@@ -1,0 +1,255 @@
+name: Pass 10 Source Mirror Import
+
+on:
+  push:
+    branches:
+      - ops/source-mirror-pass10
+    paths:
+      - mirror-import/pass10/READY
+
+permissions:
+  contents: write
+
+jobs:
+  import-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      EXPECTED_MAIN: 4e40d4191b5c811b1c9e3e41cc32f0461c4e686c
+      CANDIDATE_BRANCH: ops/source-mirror-pass10-candidate
+      MIRROR_MILESTONE: milestone/pass10-direct-source-mirror
+    steps:
+      - name: Checkout isolated importer branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assert source main has not moved
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          ACTUAL="$(git rev-parse origin/main)"
+          echo "origin/main=$ACTUAL"
+          test "$ACTUAL" = "$EXPECTED_MAIN"
+
+      - name: Reconstruct canonical Pass 10 live source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python mirror-import/pass10/pass10_source_mirror_import.py \
+            --repo "$GITHUB_WORKSPACE" \
+            --work "$RUNNER_TEMP/valovault-reconstruct" \
+            --result "$RUNNER_TEMP/import-result.json"
+          cat "$RUNNER_TEMP/import-result.json"
+
+      - name: Build candidate commit on top of main
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          SOURCE="$RUNNER_TEMP/valovault-reconstruct/source"
+          EXPECTED="$RUNNER_TEMP/valovault-reconstruct/expected.json"
+          CAND="$RUNNER_TEMP/candidate"
+          rm -rf "$CAND"
+          git clone -q --no-checkout "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$CAND"
+          cd "$CAND"
+          git checkout -q -B source-mirror-candidate origin/main
+          git config user.name "ValoVault Source Mirror"
+          git config user.email "valovault-mirror@users.noreply.github.com"
+
+          find . -mindepth 1 -maxdepth 1 \
+            ! -name .git \
+            ! -name checkpoints \
+            ! -name GITHUB_CHECKPOINTS.md \
+            ! -name REMOTE_CHECKPOINT_STATUS.md \
+            -exec rm -rf {} +
+          cp -a "$SOURCE"/. .
+          rm -f valorant-skin-vault.html valorant-skin-vault-v2.html
+
+          python - "$EXPECTED" <<'PY'
+          import hashlib, json, pathlib, sys
+          root = pathlib.Path('.')
+          exp = json.load(open(sys.argv[1], encoding='utf-8'))
+          expected = {x['path']: (x['size'], x['sha256']) for x in exp['files']}
+          for rel, (size, digest) in expected.items():
+              p = root / rel
+              if not p.is_file():
+                  raise SystemExit(f'missing intended source file: {rel}')
+              b = p.read_bytes()
+              if len(b) != size or hashlib.sha256(b).hexdigest() != digest:
+                  raise SystemExit(f'content mismatch: {rel}')
+          approved_roots = {'checkpoints', '.git'}
+          approved_files = {'GITHUB_CHECKPOINTS.md', 'REMOTE_CHECKPOINT_STATUS.md'}
+          actual = []
+          for p in root.rglob('*'):
+              if not p.is_file():
+                  continue
+              rel = p.relative_to(root).as_posix()
+              if rel.split('/', 1)[0] in approved_roots or rel in approved_files:
+                  continue
+              actual.append(rel)
+          missing = sorted(set(expected) - set(actual))
+          extra = sorted(set(actual) - set(expected))
+          if missing or extra:
+              raise SystemExit(f'candidate path audit failed missing={missing[:20]} extra={extra[:20]}')
+          print(f'candidate path/hash audit PASS: {len(expected)} intended files')
+          PY
+
+          git add -A
+          git commit -m "Materialize canonical Pass 10 source mirror"
+          SOURCE_COMMIT="$(git rev-parse HEAD)"
+          echo "SOURCE_COMMIT=$SOURCE_COMMIT" >> "$GITHUB_ENV"
+          git push -q --force origin "HEAD:refs/heads/${CANDIDATE_BRANCH}"
+
+      - name: Fresh-clone candidate and run full regression
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          FRESH="$RUNNER_TEMP/fresh-candidate"
+          rm -rf "$FRESH"
+          git clone -q --branch "$CANDIDATE_BRANCH" --single-branch \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$FRESH"
+          cd "$FRESH"
+          python -m pip install -q pytest jsonschema numpy pillow
+          pytest -q tests tools/asset-indexer/tests | tee "$RUNNER_TEMP/pytest.txt"
+          grep -Eq '118 passed' "$RUNNER_TEMP/pytest.txt"
+
+          python tools/dev/audit_unreal.py
+          python tools/dev/audit_phase5.py
+          python tools/dev/audit_phase6.py
+          python tools/dev/audit_phase7.py
+          python tools/dev/audit_phase8.py
+          for n in 02 03 04 05 06 07 08 09 10; do python "tools/dev/audit_phase8_pass${n}.py"; done
+
+          python -m compileall -q apps tools tests
+          node --check apps/catalog/src/app.js
+          node --check apps/catalog/src/data.js
+          node --check apps/catalog/src/bridge.js
+          node --check apps/catalog/src/research.js
+          node --check apps/lab/src/lab.js
+          node --check apps/control/src/control.js
+          echo "fresh candidate validation PASS"
+
+      - name: Fast-forward main only after full validation
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          CAND="$RUNNER_TEMP/candidate"
+          cd "$CAND"
+          git fetch -q origin main
+          test "$(git rev-parse origin/main)" = "$EXPECTED_MAIN"
+          test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
+          git push -q origin "HEAD:refs/heads/main"
+          echo "main fast-forwarded to verified source commit $SOURCE_COMMIT"
+
+      - name: Record audited source mirror metadata
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          CAND="$RUNNER_TEMP/candidate"
+          EXPECTED="$RUNNER_TEMP/valovault-reconstruct/expected.json"
+          cd "$CAND"
+          git fetch -q origin main
+          git checkout -q -B main origin/main
+          test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT"
+
+          python - "$EXPECTED" "$SOURCE_COMMIT" <<'PY'
+          import datetime, json, pathlib, sys
+          expected = json.load(open(sys.argv[1], encoding='utf-8'))
+          source_commit = sys.argv[2]
+          mirror = {
+            'schemaVersion': 1,
+            'result': 'PASS',
+            'canonicalCheckpoint': 'PHASE_08_PASS_10_COMPLETE',
+            'canonicalPass10ZipSha256': '1bea8efb5eb4d329bdfed4777af0902651833cb3c5e0b1939df231b5dfa96d17',
+            'classificationManifestSha256': '724a2e08b9028fa9f5d7bc70c494dc149d0f68a14a220bb140f671b2fc489184',
+            'auditedSourceCommitSha': source_commit,
+            'intendedTrackedFileCount': 523,
+            'audit': {'missing': 0, 'unexpectedLiveSource': 0, 'hashOrSizeDifferences': 0},
+            'validation': {
+              'pytest': '118 passed',
+              'audits': 'Phase 04/05/06/07 + Phase 08 + Pass-02/03/04/05/06/07/08/09/10 PASS',
+              'pythonCompileall': 'PASS',
+              'javascriptSyntax': 'PASS',
+              'freshGitHubDerivedCandidate': True
+            },
+            'excludedPathClassifications': {
+              'localRuntimeGenerated': [
+                'data/generated-local/runtime-registry.json',
+                'data/runtime/backend_config.json',
+                'data/runtime/catalog-sync/.gitkeep',
+                'data/runtime/catalog-sync/5f3222866d183201-snapshot.json',
+                'data/runtime/catalog-sync/quick-onboarding/classification-cache.json',
+                'data/runtime/catalog-sync/quick-onboarding/index.json',
+                'data/runtime/catalog-sync/quick-onboarding/manifests/vandal-fixture/kuronami-fixture.json',
+                'data/runtime/catalog-sync/quick-onboarding/manifests/vandal-fixture/prime-fixture.json',
+                'data/runtime/catalog-sync/quick-onboarding/manifests/vandal-fixture/reaver-fixture.json',
+                'data/runtime/catalog-sync/quick-onboarding/research-queue.json',
+                'data/runtime/reaver-export-candidates.json',
+                'data/runtime/target-pc-return-bindings.json',
+                'tools/fidelity/output/reaver-vandal-core-v1/run.json',
+                'tools/fidelity/output/reaver-vandal-core-v1/summary.html'
+              ],
+              'historicalRecoverySnapshots': {
+                'pattern': 'docs/recovery/source-snapshots/*',
+                'count': 15,
+                'preservedBy': 'historical checkpoint/recovery artifacts'
+              },
+              'checkpointPackageMetadata': ['CHECKPOINT_MANIFEST.json', 'PACKAGE_CONTENT_MANIFEST.json'],
+              'secretsAndDisposable': ['.env credentials', 'node_modules', '__pycache__', '.pytest_cache', 'disposable build/cache output'],
+              'proprietaryLocalEvidence': 'Not mirrored; user-owned VALORANT assets/captures stay in configured local roots.'
+            },
+            'approvedGitHubOnlyMetadata': [
+              'checkpoints/**',
+              'GITHUB_CHECKPOINTS.md',
+              'REMOTE_CHECKPOINT_STATUS.md',
+              'GITHUB_SOURCE_MIRROR_MANIFEST.json'
+            ],
+            'files': expected['files'],
+            'auditedAtUtc': datetime.datetime.now(datetime.timezone.utc).isoformat()
+          }
+          pathlib.Path('GITHUB_SOURCE_MIRROR_MANIFEST.json').write_text(json.dumps(mirror, indent=2) + '\n', encoding='utf-8')
+
+          state = pathlib.Path('CURRENT_STATE.md').read_text(encoding='utf-8')
+          marker = '## GitHub direct-source consolidation — verified'
+          block = f'''\n\n{marker}\n\n- GitHub `main` now contains the direct live Pass-10 source tree at audited source commit `{source_commit}`.\n- Direct-source audit: **523 intended live source files; 0 missing; 0 unexpected live-source files; 0 hash/size differences**.\n- A fresh GitHub-derived candidate checkout passed **118 tests**, all audits through Phase 08 Pass 10, Python compileall and relevant JavaScript syntax checks before `main` moved.\n- `GITHUB_SOURCE_MIRROR_MANIFEST.json` records every audited live-source path/hash and all deliberate exclusions.\n- Local/generated runtime state, historical recovery snapshots, checkpoint-package manifests, secrets/disposable output, and proprietary local evidence remain deliberately excluded from the direct live-source mirror.\n- Product implementation remains **Phase 08 Pass 10 complete**; this consolidation pass changes durability/handoff, not ValoVault product architecture.\n- The active ValoVault chat still owns the next roadmap/master prompt. The next decision is an operator-grade Reaver target-PC release freeze / first real Reaver run, not broad premium scaling.\n'''
+          if marker in state:
+              state = state.split(marker)[0].rstrip() + block
+          else:
+              state = state.rstrip() + block
+          pathlib.Path('CURRENT_STATE.md').write_text(state, encoding='utf-8')
+
+          cp = pathlib.Path('GITHUB_CHECKPOINTS.md')
+          text = cp.read_text(encoding='utf-8')
+          marker2 = '## Pass 10 direct-source mirror consolidation'
+          block2 = f'''\n\n{marker2}\n\n- Audited live-source commit: `{source_commit}`\n- Intended direct live source: **523 files**\n- Audit: **0 missing / 0 unexpected live-source / 0 hash-or-size differences**\n- Fresh GitHub-derived validation: **118 tests + all audits through Pass 10 + Python/JS syntax PASS**\n- Canonical Pass-10 ZIP SHA-256: `1bea8efb5eb4d329bdfed4777af0902651833cb3c5e0b1939df231b5dfa96d17`\n- Full path/hash proof: `GITHUB_SOURCE_MIRROR_MANIFEST.json`\n- GitHub `main` is now a proven direct mirror of the intended live source set at the audited source commit, plus approved GitHub-only checkpoint/handoff metadata.\n'''
+          if marker2 in text:
+              text = text.split(marker2)[0].rstrip() + block2
+          else:
+              text = text.rstrip() + block2
+          cp.write_text(text, encoding='utf-8')
+          PY
+
+          git add CURRENT_STATE.md GITHUB_CHECKPOINTS.md GITHUB_SOURCE_MIRROR_MANIFEST.json
+          git commit -m "Record audited Pass 10 direct-source mirror"
+          FINAL_COMMIT="$(git rev-parse HEAD)"
+          git push -q origin "HEAD:refs/heads/main"
+          git push -q --force origin "HEAD:refs/heads/${MIRROR_MILESTONE}"
+          echo "FINAL_COMMIT=$FINAL_COMMIT" >> "$GITHUB_ENV"
+          echo "final metadata commit $FINAL_COMMIT"
+
+      - name: Final summary
+        shell: bash
+        run: |
+          echo "Pass 10 direct-source mirror: PASS"
+          echo "Audited source commit: $SOURCE_COMMIT"
+          echo "Final metadata commit: $FINAL_COMMIT"
+          echo "Milestone: $MIRROR_MILESTONE"
