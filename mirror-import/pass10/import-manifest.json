@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "name": "ValoVault Pass 10 direct-source mirror import",
+  "baseMainCommit": "4e40d4191b5c811b1c9e3e41cc32f0461c4e686c",
+  "baseSourceArchive": "checkpoints/ValoVault_PHASE_08_PASS_01_GITHUB_SOURCE.tar.xz",
+  "canonicalPass10ZipSha256": "1bea8efb5eb4d329bdfed4777af0902651833cb3c5e0b1939df231b5dfa96d17",
+  "classificationManifestSha256": "724a2e08b9028fa9f5d7bc70c494dc149d0f68a14a220bb140f671b2fc489184",
+  "intendedTrackedCount": 523,
+  "delta": {
+    "partsDir": "mirror-import/pass10-delta",
+    "partCount": 14,
+    "base64Size": 111256,
+    "base64Sha256": "f794d4c9831a148e33d25902c2e694ef5aeb1a99e17ab6d3fc5c6dc5b8e29aee",
+    "xzSize": 83440,
+    "xzSha256": "11d35d602aea4d72c46efdc7ade33e02dc334711ab9d05bcc0c7f046536476ea",
+    "patchSize": 721430,
+    "patchSha256": "330ac053602a9042efaea9090810082d75bb057927aee64a327553f4dec07ff9"
+  },
+  "expectedManifest": {
+    "partsDir": "mirror-import/pass10-expected",
+    "partCount": 5,
+    "base64Size": 32824,
+    "base64Sha256": "088b66e950c403e7ba5f4915633965e41e2a7d85727d6af614c3db91fc18742c",
+    "xzSize": 24616,
+    "xzSha256": "feab6aab70f04fa3a2b7061da16a37f781835ab5a9be8b0e428d854e4d3112d4",
+    "jsonSize": 74922,
+    "jsonSha256": "6a3d6a6c5958f84c02f80bd609e95a42236e72324450f7bd12d1b4276613f43c"
+  },
+  "obsoleteRootPaths": ["valorant-skin-vault.html", "valorant-skin-vault-v2.html"],
+  "preserveGitHubOnly": ["checkpoints", "GITHUB_CHECKPOINTS.md", "REMOTE_CHECKPOINT_STATUS.md"],
+  "exclusions": {
+    "localGeneratedCount": 14,
+    "historicalRecoverySnapshotCount": 15,
+    "checkpointPackageManifestCount": 2
+  }
+}
