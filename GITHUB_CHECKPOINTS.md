@@ -33,25 +33,37 @@ GitHub is the durable execution/history/checkpoint index for ValoVault. The acti
 - Pass-05 GitHub patch transport was not independently proven complete; use the complete verified ZIP for exact recovery.
 
 ## Phase 08 Pass 06 — 2026-08-18
-
 - Canonical complete checkpoint: `ValoVault_PHASE_08_PASS_06_COMPLETE.zip`
-- Persisted in ChatGPT Library: `/ValoVault Checkpoints/ValoVault_PHASE_08_PASS_06_COMPLETE.zip`
-- Complete ZIP SHA-256: `cad9769249e4131cfd4ebe13bb371f0aa9e2db76f58a3cc3cbda720579532518`
-- ZIP files: **509**
-- Checkpoint-manifest entries: **508**
-- Package-manifest entries: **507**
+- ChatGPT Library: `/ValoVault Checkpoints/ValoVault_PHASE_08_PASS_06_COMPLETE.zip`
+- SHA-256: `cad9769249e4131cfd4ebe13bb371f0aa9e2db76f58a3cc3cbda720579532518`
+- ZIP files: 509; checkpoint entries: 508; package entries: 507; CRC/manifest hashes PASS.
+- Verification: 89 tests; all audits through Pass 06; Python/JS syntax PASS.
+- Live backend: threshold-governance, token-free threshold-application-plan and calibrated-replay-plan jobs/API PASS.
+- Safety: no apply API; CLI application is token-bound, backed up, stale/duplicate-safe and reversible.
+- Fixture: 0 reviewed patches/applications; calibrated replay `NO_APPLIED_THRESHOLD_VERSION`; canonical thresholds `{}`.
+
+## Phase 08 Pass 07 — 2026-08-18
+- Canonical complete checkpoint: `ValoVault_PHASE_08_PASS_07_COMPLETE.zip`
+- ChatGPT Library: `/ValoVault Checkpoints/ValoVault_PHASE_08_PASS_07_COMPLETE.zip`
+- SHA-256: `ec898b86f5ac52359abd46053e5033b106b1fb09bb106bf2b4bea02744c2c19e`
+- ZIP files: **525**
+- Checkpoint-manifest entries: **524**
+- Package-manifest entries: **523**
 - ZIP CRC + every recorded manifest SHA/size: **PASS**
-- Verification: **89 tests passed**; Phase 04/05/06/07/08 + Pass-02/03/04/05/06 audits passed; Python/JS syntax passed.
-- Live backend: `threshold-governance`, token-free `threshold-application-plan`, and `calibrated-replay-plan` durable jobs/API all PASS.
-- Safety proof: POST `/api/control/threshold-apply` returns **404**; threshold application is CLI-only, explicit-token-bound, backed up before mutation, stale/duplicate plans rejected, and rollback is byte-exact.
-- Fixture truth: reviewed patches 0; governance reviewed/invalid/stale 0/0/0; application plan `NO_REVIEWED_PATCH`; active applications 0; calibrated replay `NO_APPLIED_THRESHOLD_VERSION`; canonical Reaver thresholds `{}`.
-- Next direction: Phase 08 Pass 07 — replay-bound threshold promotion governance + version registry + target-PC calibration/replay certification handoff.
+- Verification: **96 tests passed**; Phase 04/05/06/07 + Phase 08 + Pass-02/03/04/05/06/07 audits PASS; Python/JS syntax PASS.
+- Added replay-bound threshold-policy promotion governance, immutable promoted/retired policy registry, deterministic 10-action Reaver target-PC certification handoff, and machine-readable vertical-slice certification gate.
+- Live backend: token-free promotion preview, target-PC handoff, and certification jobs/API PASS.
+- Safety: `/api/control/threshold-promote` and `/api/control/threshold-retire` return **404**; actual promote/retire operations remain explicit CLI-only reviewer actions.
+- Synthetic PASS replay → token-bound promotion → append-only retirement: PASS; FAIL replay and stale-spec promotion rejection: PASS.
+- Fixture truth: promotion preview `NO_REPLAY_MEASUREMENT`; active threshold policies 0; target-PC handoff 10/10 actions; vertical-slice certification `BLOCKED` with 9 real blockers; canonical thresholds `{}`.
+- Portability issue discovered: historical control/capture artifacts contain machine-specific absolute paths from older temporary workspaces. These must be reconciled/rebased before real target-PC evidence is trusted.
+- Next objective: **Phase 08 Pass 08 — portable target-PC return ingestion + path reconciliation/rebasing**, still Reaver-only.
 
 ## Strict authority split
 
-- **Chat owns roadmap reasoning and the canonical next implementation prompt.**
+- **Chat owns roadmap reasoning, improvement choices, phase sequencing, and the canonical next implementation prompt.**
 - **GitHub owns durable source/history/checkpoint metadata/milestones.**
-- `CURRENT_STATE.md` is the concise recovery handoff, not the entire product strategy.
+- `CURRENT_STATE.md` is a concise recovery handoff, not the entire product strategy.
 
 ## Recovery rule
 
