@@ -81,11 +81,30 @@ GitHub is the durable execution/history/checkpoint index for ValoVault. The acti
 - Crash recovery: RUNNING → INTERRUPTED; explicit retry required; completed safe work is not replayed.
 - Manual evidence records owned evidence-root provenance/counts/bytes/directory SHA and never copies proprietary captures/assets.
 - Close is rejected until all required target steps complete; receipt is hash-bound safe metadata and proves workflow provenance only.
-- Pass-09 safe-return validates/includes a valid receipt when present; receiver still locally regenerates truth.
-- Backend/browser exposes only the non-mutating session plan/receipt views. Run-next, manual-evidence recording and session-close API probes return **404** as required.
-- Synthetic complete session → execution receipt → safe return → receiver verification: PASS; interruption/resume, stale spec/kit, incomplete close and receipt tamper rejection: PASS.
-- Fixture truth: no active session or receipt; no real captures/assets; environment doctor BLOCKED / 3; execution-kit plan READY / **77 files / 0 violations**; certification BLOCKED; canonical thresholds `{}`.
-- Next implementation direction must be chosen in the active chat. Recommended systemic next step: repair and prove the GitHub direct-source mirror before the first real Reaver run / Claude Code handoff.
+- Synthetic complete session → execution receipt → safe return → receiver verification PASS; interruption/resume, stale spec/kit, incomplete close and receipt tamper rejection PASS.
+
+## Pass 10 workflow hardening — 2026-08-18
+- Reaver closure lock established: no speculative Pass 11/fidelity abstraction and no premium-family scaling before the first real Reaver round trip.
+- Root/operator/recovery workflow simplified (`START_HERE`, target configurator, one-command release, Recovery Vault).
+- Verification: **121 tests** + all existing audits/syntax checks PASS.
+- Historical milestone branch: `milestone/pass10-workflow-hardened`.
+
+## Pass 10 product hardening — 2026-08-18 — CURRENT
+- Canonical exact filesystem checkpoint: `ValoVault_PASS10_PRODUCT_HARDENED_COMPLETE.zip`
+- SHA-256: `aa50b7d84db1f0fa5159426f47c2b884d5b47176ccb595f470ad0e72554c33bc`
+- Size: **3,130,284 bytes**
+- ZIP files: **593**
+- CRC + embedded package/checkpoint manifest sizes/hashes: **PASS**
+- Verification: **134 pytest tests passed**; every audit through Phase 08 Pass 10 PASS; Python compileall + relevant JS syntax PASS.
+- First-Reaver software workflow: **24/24 implemented**; packaged real evidence/certification fixture remains **0/11** by design. This is not an overall-product percentage.
+- Reaver target-PC kit: `ValoVault_REAVER_TARGET_PC_EXECUTION_KIT.zip`, SHA-256 `d7d3a37e467289a62e17a7e259bc0734bdb0f988843d277276d81813165ccf77`, **83 allowlisted payload files / 0 violations**.
+- Deduplicated Recovery Vault: `ValoVault_RECOVERY_VAULT_ALL_HISTORY.zip`, SHA-256 `acdf0b2446a80a574a456af88ce2e7da066e4e36e1ce5b982fd860430c994909`, size **38,833,577 bytes**, **24 unique artifacts from 32 candidates / 8 duplicate copies elided**, CRC PASS.
+- Recovery Vault self-nesting/in-place refresh bug fixed; build is now temp-write + CRC verify + atomic promote and prior Recovery Vault containers are never nested.
+- Safe source archive for normal Git/Claude handoff: `ValoVault_PASS10_PRODUCT_HARDENED_SOURCE.tar.xz`, SHA-256 `738e24a9ed29440718ddf4758d8995fb1c4ae47957fcfa2f7615165e438d351f`, **347,696 bytes / 575 safe source-control files**.
+- The source archive has **not** been binary-uploaded through the current GitHub connector. Do not claim the current GitHub tree is the exact 575-file product-hardened source mirror until a normal authenticated Git push or independent path/hash audit proves it.
+- Product hardening added the Reaver operator facade, automated checkpoint/recovery/self-test commands, safe atomic public-catalog promotion/provenance, catalog UI scaling/filter/sort improvements, local app doctor, one normal local launcher, and `PROJECT_COMPLETION_MATRIX.json` anti-loop lane states.
+- Browser screenshot QA remains environment-gated because this container's Chromium hangs before frame capture; no visual PASS is claimed.
+- **User should not be asked to run real target-PC evidence yet.** Continue only independent product/usability/distribution work that can be verified without proprietary evidence.
 
 ## Strict authority split
 
@@ -95,4 +114,4 @@ GitHub is the durable execution/history/checkpoint index for ValoVault. The acti
 
 ## Recovery rule
 
-Prefer the newest complete checkpoint whose SHA/CRC/manifests have been verified. GitHub `main` is **not yet proven to be a complete path/hash mirror** of the recovered filesystem, so do not claim it is. The complete verified ZIP is the authoritative filesystem disaster-recovery source until that direct-tree audit exists.
+For exact filesystem recovery, prefer the newest complete verified checkpoint plus the deduplicated Recovery Vault. GitHub is the durable history/handoff index. Do **not** claim its live tree is a path/hash-complete mirror of a later filesystem checkpoint unless that exact tree was independently audited.
