@@ -1,151 +1,149 @@
 # ValoVault — CURRENT STATE
 
-**Canonical development checkpoint:** Phase 08 in progress — **Pass 10 complete and verified**  
+**Canonical development state:** Phase 08 Pass 10 complete + independent product hardening  
 **Checkpoint date:** 2026-08-18  
-**Next implementation prompt:** must be authored in the active ValoVault chat. Do not infer Pass 11 solely from this file.
+**Roadmap authority:** the active ValoVault chat. Do **not** invent Pass 11 from this file.
 
-## Strict continuation authority
+## Continuation contract
 
-- **The active ValoVault chat owns roadmap reasoning, improvements, phase sequencing and the exact next implementation/master prompt.**
-- **GitHub owns durable source/history/checkpoint metadata/milestones.**
-- This file is a concise recovery handoff, not the full project strategy.
-- Before each substantial pass, state the canonical prompt in chat first.
+ValoVault is one continuous mid-development project. Preserve existing architecture/history and continue from the newest verified checkpoint. Permanent loop:
 
-Permanent loop: **inspect → implement → test → fix → verify → update CURRENT_STATE.md → complete ZIP/Git checkpoint → continue**.
+**inspect → implement → test → fix → verify → update state → complete ZIP → Recovery Vault → GitHub handoff → continue**
 
-Truth boundary: **classification ≠ assets ≠ runtime readiness ≠ fidelity ≠ calibrated replay ≠ promoted policy ≠ certification**.
+Truth boundary remains strict:
 
-## Preserved product decisions
+**classification ≠ assets ≠ runtime readiness ≠ fidelity ≠ calibrated replay ≠ promoted policy ≠ certification**
 
-Local-first; UE5 Weapon Lab remains fidelity authority; browser lab is fallback/inspection; FModel/ValorantPorting/Blender local extraction; Base Vandal → Reaver Vandal first premium vertical slice; immutable evidence/provenance; no fake READY/PASS; no running VALORANT/Vanguard/protected-memory/multiplayer interaction; no broader premium scaling until the real Reaver round trip succeeds.
+GitHub is the durable history/handoff index. The newest complete verified ZIP is the exact filesystem disaster-recovery authority unless an exact later Git tree has been independently path/hash audited.
 
-## Completed Phase 08 stack
+## Preserved product direction
 
-Passes 01–09 remain complete: deterministic fidelity; capture/index/preflight/working set; scorecards/calibration/evidence cohorts/human threshold decisions; reversible threshold governance; calibrated replay; PASS-only promotion; target-PC handoff/certification; portable return reconciliation/root rebinding; execution-kit/environment doctor/safe return bundle.
+- local-first VALORANT weapon/skin catalog;
+- browser Catalog + Control + Browser Weapon Lab;
+- UE5 Weapon Lab remains fidelity authority;
+- FModel / ValorantPorting / Blender local export pipeline;
+- Base Vandal → Reaver Vandal is the first premium vertical slice;
+- no fake READY/PASS/CERTIFIED/PROMOTED state;
+- no interaction with running VALORANT/Vanguard/protected memory/multiplayer traffic;
+- proprietary captures/assets remain local and are never checkpointed;
+- no Prime/Kuronami/etc. fidelity/runtime scaling until Reaver closes truthfully.
 
-### Pass 10 — complete
+## Reaver closure lock
 
-Added:
-- `packages/shared-schema/target-pc-session.schema.json`;
-- `packages/shared-schema/target-pc-execution-receipt.schema.json`;
-- `tools/fidelity/target_pc_session.py`;
-- canonical `data/control-plane/target-pc-session-plan.json`;
-- durable non-mutating `target-pc-session-plan` job + GET plan/receipt APIs;
-- Pass-09 return-package receipt validation/inclusion;
-- Pass-10 tests/audit/report/verification.
+The Phase-08/Pass-10 fidelity architecture is mature enough. Do **not** build another general fidelity/control-plane abstraction before the first real Reaver round trip.
 
-Session contract:
-- 10 required target-PC steps;
-- exactly 2 `MANUAL_EVIDENCE_REQUIRED` capture gates;
-- 9 receiver-only downstream reconciliation/calibration/certification steps;
-- session bound to handoff session ID, fidelity-spec SHA, execution-kit manifest SHA, machine identity and nonce;
-- offline automatic steps only; runner never launches/inspects/controls VALORANT/Vanguard;
-- interrupted RUNNING step becomes `INTERRUPTED`, requiring explicit retry; completed work is not replayed;
-- manual evidence records root + reviewer/rationale + counts/bytes/directory SHA, never copied proprietary files;
-- close rejected until all required target steps are complete;
-- execution receipt is SHA-256 hash-bound safe metadata; receipt proves workflow provenance only and is not remote fidelity truth;
-- browser/backend cannot run steps, record evidence or close sessions.
+Reaver-specific work is allowed only for:
+1. a blocker observed during the eventual real target-PC run;
+2. operator-friction reduction;
+3. regression/truth-boundary fixes;
+4. durability/recovery work.
 
-## Current packaged truth
-- catalog 17; classification research blockers 2;
-- local realtime/Web3D/Unreal validated: 0 / 0 / 0;
-- captures 0/44 + 0/44; preflight BLOCKED / 88; queue 10 pending; working/fidelity blocked;
-- calibration/threshold/policy evidence remains empty; canonical Reaver thresholds `{}`;
-- target-PC handoff 10/10; return reconciliation BLOCKED / 2; certification BLOCKED / 9;
-- environment doctor BLOCKED / 3 (export roots, Blender, Weapon Lab);
-- execution-kit plan READY / **83 files / 0 violations**;
-- target-PC session plan READY / **10 target / 2 manual / 9 receiver-only**;
-- active target-PC session: none; execution receipt: none; active durable jobs: 0.
+The user should **not** be asked to perform the real target-PC evidence run yet. Continue independent software/product work first.
+
+## Completed Reaver software path
+
+- deterministic fidelity orchestration;
+- capture/index/preflight/working set;
+- scorecards/calibration/evidence cohorts;
+- human threshold decisions + reversible governance;
+- calibrated replay + PASS-only policy promotion;
+- target-PC handoff + truthful certification gate;
+- portable return reconciliation/root rebinding;
+- environment doctor + safe execution/return packages;
+- resumable target-PC session + SHA-bound execution receipt;
+- single target/receiver operator façade;
+- one-command release self-test/checkpoint/recovery tooling.
+
+Scoped Reaver software path: **24/24 implemented**. Packaged real evidence/certification fixture remains **0/11** by design. This is not an overall product percentage.
+
+Current Reaver fixture truth:
+- catalog 17 / classified 15 / research blockers 2;
+- realtime/Web3D/Unreal validated 0 / 0 / 0;
+- captures 0/44 reference + 0/44 candidate;
+- fidelity preflight BLOCKED / 88 missing inputs;
+- canonical thresholds `{}`;
+- certification BLOCKED / 9;
+- environment doctor BLOCKED / 3 target-machine inputs;
+- target-PC session plan 10 target steps / 2 manual evidence gates / 9 receiver-only steps;
+- active durable jobs 0.
+
+## Independent product hardening completed after Pass 10
+
+### Operator/recovery hardening
+- `START_HERE.md`, `RUN_REAVER.*`, `VALOVAULT_START.*`;
+- target-PC configurator + single Reaver operator façade;
+- one-command release verification;
+- one-command safe complete checkpoint builder;
+- deduplicated Recovery Vault with no-self-nesting, temp-write, CRC verification and atomic promotion;
+- `PROJECT_COMPLETION_MATRIX.json` anti-loop lane map.
+
+### Public catalog hardening
+- safe public catalog manager: **stage → audit → shrink guard → atomic promote → provenance**;
+- backend/control refresh routed through safe promotion;
+- source/version/health visibility;
+- scalable catalog search/filter/sort/lazy-image UI;
+- local app doctor distinguishes required blockers from optional machine capabilities.
+
+### Local-first browser runtime hardening
+- removed runtime CDN execution from Browser Lab and Catalog;
+- removed Google model-viewer and Google Fonts runtime dependencies;
+- Catalog uses ValoVault-owned minimal local GLB/animation viewer;
+- official Three.js r180 dependency manifest pins exact upstream Git blob SHA-1 values;
+- explicit installer verifies blobs, writes SHA-256 lock, and atomically promotes only verified files;
+- missing vendor files gate Browser 3D only; Catalog/Control remain available;
+- `audit_web_runtime.py` prevents remote executable/style/import-map regressions.
+
+Current container cannot fetch the pinned third-party files, so no fabricated vendor bytes are claimed installed. A network-enabled setup/build machine may run `python tools/dev/vendor_web_dependencies.py install`.
+
+### Localhost backend security hardening
+- unified backend and legacy documented bridge remain bound to loopback;
+- non-loopback/DNS-rebinding Host values rejected;
+- foreign browser Origin and cross-site requests rejected;
+- mutating requests require `application/json`;
+- wildcard CORS removed; only validated loopback origin/current port is echoed;
+- local CLI use without Origin remains supported;
+- basic no-sniff/referrer/CORP response hardening added.
+
+Live smoke verified: local health 200; foreign-origin read 403; foreign cross-site write 403; same-origin non-JSON write 415; same-origin JSON write 202; non-loopback Host 403. Smoke-created finished jobs were cleared before checkpointing.
 
 ## Verification
-- **138 pytest tests passed**;
-- every audit from Phase 04 through Phase 08 Pass 10: PASS;
-- Python compileall + relevant JS syntax: PASS;
-- live session-plan job/API: PASS;
-- session mutation API probes: 404 as required;
-- synthetic full session through hash-bound receipt + safe return: PASS;
-- interruption/retry/resume, stale spec/kit, incomplete close and receipt tampering tests: PASS.
 
-## Direction correction after Pass 10 — Reaver closure lock
+Current verified software baseline:
+- **142 pytest tests PASS**;
+- **26 one-command release checks PASS**;
+- every audit from Phase 04 through Phase 08 Pass 10 PASS;
+- Python compileall PASS;
+- relevant JavaScript syntax PASS;
+- web runtime audit PASS / 0 remote executable-style findings;
+- Reaver target kit verification PASS / 83 allowlisted payload files / 0 violations;
+- durable jobs 0.
 
-The active chat reviewed the project direction and chose the first-real-run path. The core architecture remains valid, but further speculative control-plane/fidelity abstraction is now frozen. See `docs/EXECUTION_STRATEGY.md`.
+Browser screenshot QA remains environment-gated because the available Chromium binary hangs before producing a frame; no visual PASS is claimed.
 
-Until the first real Reaver round trip succeeds, new engineering work is allowed only for a real-run blocker, operator-friction reduction, regression fix, or durability/recovery improvement. Do not broaden to other premium families.
+## Current durable artifacts
 
-Workflow hardening added after Pass 10 without changing product semantics:
-- root `START_HERE.md` plus `RUN_REAVER.ps1` / `.sh`;
-- `TARGET_PC_START_HERE.md` shipped inside the target-PC execution kit;
-- `tools/fidelity/configure_target_pc.py` for one-command local tool/root configuration;
-- `tools/fidelity/reaver_operator.py` as the single target/receiver facade;
-- target facade auto-progresses through every safe step and pauses only at the two real evidence gates;
-- receiver facade verifies/rebinds returned evidence, regenerates local truth, prepares calibration review, applies explicitly reviewed thresholds, runs calibrated replay, promotes PASS-only policy and re-evaluates certification;
-- target-machine project/Python/comparator absolute paths are treated as hash-verified non-authoritative provenance and rebound locally instead of creating meaningless operator binding chores;
-- `prepare-reaver-release.ps1` / `.sh` builds + verifies the one target-PC execution ZIP;
-- `tools/dev/reaver_release_selftest.py` plus `verify-reaver.ps1` / `.sh` replaces the long manual release-verification command list;
-- `tools/recovery/build_complete_checkpoint.py` plus `checkpoint-now.ps1` / `.sh` builds and verifies the current safe complete checkpoint;
-- `tools/recovery/build_recovery_vault.py` maintains one deduplicated historical Recovery Vault.
+### Exact complete filesystem checkpoint — CURRENT
+`ValoVault_PASS10_LOCALHOST_SECURITY_HARDENED_COMPLETE.zip`
+- SHA-256: `9d7c0d1fa2669cc5ac6b2aab59554883e1c791de4257770518824db02baa94b1`
+- size: 3,147,639 bytes
+- 605 files
+- CRC + embedded package/checkpoint manifest verification PASS
 
-Scoped closure status:
-- first-Reaver software path: **24 / 24 implemented (100%)**;
-- real evidence/certification path in packaged fixture: **0 / 11 satisfied**;
-- this is deliberately **not** an overall ValoVault-completion percentage.
+### Deduplicated Recovery Vault — CURRENT
+`ValoVault_RECOVERY_VAULT_ALL_HISTORY.zip`
+- SHA-256: `7e61ec98b545ad9e006840e3c9ee4911f2369c9685e56f72deacf9866c7add5e`
+- size: 44,984,585 bytes
+- 34 candidates → 27 unique artifacts / 7 duplicate copies elided
+- CRC PASS
 
-**Next engineering direction while the user is not yet testing:** do not create Pass 11 or another fidelity abstraction. Continue independent product-completion work that does not require proprietary local evidence—starting with the public metadata/catalog product path and operator-facing catalog/control polish—while preserving the Reaver closure lock. The next Reaver-specific engineering change must be a blocker observed during the eventual real run.
+### Reaver target-PC kit
+`ValoVault_REAVER_TARGET_PC_EXECUTION_KIT.zip`
+- SHA-256: `b7eb9865eb1db8a2eeb1d3033742e8344073903167e372d44de9d67a81c75043`
+- 83 allowlisted payload files / 0 violations
+- **do not ask the user to run it yet**.
 
-## Independent product completion — catalog hardening
+## Next engineering direction
 
-While real Reaver evidence is deferred, the public catalog path was hardened without changing Phase-08/Reaver semantics.
+Continue only concrete independent product/usability/data/distribution/security gaps that can be verified without proprietary real evidence. Do not create Pass 11, do not expand premium fidelity scope, and do not treat missing target-machine inputs as software TODOs.
 
-Added:
-- `tools/catalog/catalog_release.py`: stage → audit → shrink guard → atomic promote → provenance state;
-- backend/control catalog refresh routed through the safe promoter before onboarding;
-- API source/version provenance preserved through fixture replay;
-- `data/catalog/public-catalog-state.json` contract for release/health/truth-boundary metadata;
-- catalog source/release UI, large-catalog lazy loading, view filters and sorting;
-- Control Plane catalog release/health/warning visibility;
-- `refresh-public-catalog.ps1` / `.sh`.
-
-Current public API provenance independently verified in chat: release branch `release-13.02`, version `13.02.00.5229475`, engine `5.3.2.0`, build date `2026-08-04T00:12:33Z`. The current container cannot directly resolve the API, so the packaged snapshot remains the deterministic fixture rather than fabricating a full live snapshot. A network-enabled environment can now refresh the full catalog safely in one command.
-
-Verification after catalog/usability hardening: **134 pytest tests**, all existing audits, compileall/JS syntax and the **83-file / 0-violation** Reaver target kit all PASS. Browser screenshot QA remains environment-blocked because the available Chromium binary hangs with DBus/zygote errors before frame capture; this was bounded and not looped.
-
-**Independent usability/distribution hardening also completed:**
-- `tools/dev/local_app_doctor.py` distinguishes required app-start blockers from optional real-machine capabilities;
-- `VALOVAULT_START.ps1` / `.bat` / `.sh` provide one normal local-app entrypoint;
-- `PROJECT_COMPLETION_MATRIX.json` is the anti-loop lane map: software-complete vs environment-gated vs real-evidence-required vs deferred-after-Reaver.
-
-Current local-app doctor after web-runtime hardening: **PASS / 18 checks / 0 required blockers / 5 expected optional warnings**. The fifth warning is the pinned Browser Lab vendor runtime, which is deliberately capability-gated until installed/verified; Catalog/Control still launch. The remaining warnings are no promoted live catalog state yet, no export roots, Blender or Weapon Lab executable. These are environment inputs, not reasons to invent more architecture.
-
-Recovery Vault refresh hardening:
-- fixed an in-place refresh recursion bug discovered during this checkpoint: a previous Recovery Vault is now always excluded from candidate payloads;
-- new vaults are written to a temporary sibling, CRC-verified, then atomically promoted;
-- vault schema v2 explicitly forbids recursively embedding an older Recovery Vault;
-- tests cover in-place refresh and duplicate-alias deduplication.
-
-## Independent product completion — local-first browser runtime hardening
-
-The Browser Weapon Lab and Catalog previously had hidden executable CDN dependencies (`unpkg` Three.js, Google model-viewer and Google Fonts), which conflicted with the local-first product invariant. This was corrected without creating a new fidelity phase.
-
-Added/changed:
-- Browser Weapon Lab import map now resolves Three.js locally at `apps/lab/vendor/three-r180/`;
-- `config/web-vendor.json` pins the minimal official Three.js **r180** runtime by exact upstream Git blob SHA-1;
-- `tools/dev/vendor_web_dependencies.py` performs explicit network-only setup, verifies every downloaded Git blob before atomic promotion, writes SHA-256 `VENDOR_LOCK.json`, and verifies fully offline afterward;
-- Catalog no longer loads Google `<model-viewer>`; `apps/catalog/src/local-model-viewer.js` is a ValoVault-owned minimal local GLB/animation viewer using the same pinned Three.js runtime;
-- Google Fonts runtime stylesheets/preconnects were removed from Catalog, Research and Control shells; local/system font fallbacks remain;
-- `tools/dev/audit_web_runtime.py` blocks future remote executable/style dependencies in browser app HTML/import maps; public metadata/image endpoints remain data, not executable dependencies;
-- if the local Three.js vendor package is absent, Catalog safely uses its normal image/media preview and only local inline-3D/Browser-Lab rendering is capability-gated;
-- local app doctor now reports vendor absence as an optional warning rather than a global app blocker.
-
-Current environment truth: the project container cannot fetch the pinned raw upstream files, so no third-party bytes were fabricated or claimed installed. A network-enabled setup/build machine can run `python tools/dev/vendor_web_dependencies.py install`; only exact pinned official blobs are accepted.
-
-Verification: **138 pytest tests / 26 release checks PASS**, all existing audits through Pass 10 PASS, Python compileall/relevant JS syntax PASS, and `audit_web_runtime.py` reports **0 remote executable/style findings**. Browser screenshot QA remains environment-gated.
-
-**Next independent direction:** continue concrete product/distribution gaps that are verifiable without proprietary evidence. Do not create Pass 11 and do not ask the user to execute real Reaver evidence yet.
-
-## Durable recovery
-
-- Latest exact complete checkpoint: `ValoVault_PASS10_WEB_RUNTIME_HARDENED_COMPLETE.zip`, SHA-256 `aadb95b42bcf1651d0e97de9238f501982b6a3d94880f90c444fd8a7d0913570`, 601 files, CRC + package/checkpoint manifest verification PASS.
-- Latest deduplicated Recovery Vault: `ValoVault_RECOVERY_VAULT_ALL_HISTORY.zip`, SHA-256 `383ba485bce895e56049af6e7044c2c6cdf9e3cba465505c8074875ec1504862`, 33 candidates → 26 unique artifacts / 7 duplicate copies elided, CRC PASS.
-- Latest Reaver target-PC kit: SHA-256 `7d817f9d06a17148c9575b3ef792d22b1bb8e3f172b7bce618faf5334874d760`, 83 allowlisted payload files / 0 violations.
-
-Use the newest complete verified ZIP recorded in `GITHUB_CHECKPOINTS.md`, plus the deduplicated Recovery Vault. The checkpoint builder excludes secrets/caches/local proprietary evidence automatically and verifies CRC + recorded SHA/size before acceptance. GitHub remains the durable history/handoff layer; do not claim a source tree is a path/hash-complete mirror unless that exact tree has been audited.
+If no material independent gap remains, stop adding architecture and preserve the clean checkpoint until the project is mature enough for the user’s eventual real Reaver run.
