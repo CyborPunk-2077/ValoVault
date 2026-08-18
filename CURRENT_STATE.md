@@ -58,7 +58,7 @@ Session contract:
 - active target-PC session: none; execution receipt: none; active durable jobs: 0.
 
 ## Verification
-- **134 pytest tests passed**;
+- **138 pytest tests passed**;
 - every audit from Phase 04 through Phase 08 Pass 10: PASS;
 - Python compileall + relevant JS syntax: PASS;
 - live session-plan job/API: PASS;
@@ -107,14 +107,14 @@ Added:
 
 Current public API provenance independently verified in chat: release branch `release-13.02`, version `13.02.00.5229475`, engine `5.3.2.0`, build date `2026-08-04T00:12:33Z`. The current container cannot directly resolve the API, so the packaged snapshot remains the deterministic fixture rather than fabricating a full live snapshot. A network-enabled environment can now refresh the full catalog safely in one command.
 
-Verification after this unit: **134 pytest tests**, all existing audits, compileall/JS syntax and the **83-file / 0-violation** Reaver target kit all PASS. Browser screenshot QA remains environment-blocked because the available Chromium binary hangs with DBus/zygote errors before frame capture; this was bounded and not looped.
+Verification after catalog/usability hardening: **134 pytest tests**, all existing audits, compileall/JS syntax and the **83-file / 0-violation** Reaver target kit all PASS. Browser screenshot QA remains environment-blocked because the available Chromium binary hangs with DBus/zygote errors before frame capture; this was bounded and not looped.
 
 **Independent usability/distribution hardening also completed:**
 - `tools/dev/local_app_doctor.py` distinguishes required app-start blockers from optional real-machine capabilities;
 - `VALOVAULT_START.ps1` / `.bat` / `.sh` provide one normal local-app entrypoint;
 - `PROJECT_COMPLETION_MATRIX.json` is the anti-loop lane map: software-complete vs environment-gated vs real-evidence-required vs deferred-after-Reaver.
 
-Current local-app doctor: **PASS / 17 checks / 0 required blockers / 4 expected optional warnings** (no promoted live catalog state yet, no export roots, Blender or Weapon Lab executable). Those warnings are machine inputs, not reasons to invent more architecture.
+Current local-app doctor after web-runtime hardening: **PASS / 18 checks / 0 required blockers / 5 expected optional warnings**. The fifth warning is the pinned Browser Lab vendor runtime, which is deliberately capability-gated until installed/verified; Catalog/Control still launch. The remaining warnings are no promoted live catalog state yet, no export roots, Blender or Weapon Lab executable. These are environment inputs, not reasons to invent more architecture.
 
 Recovery Vault refresh hardening:
 - fixed an in-place refresh recursion bug discovered during this checkpoint: a previous Recovery Vault is now always excluded from candidate payloads;
@@ -122,8 +122,30 @@ Recovery Vault refresh hardening:
 - vault schema v2 explicitly forbids recursively embedding an older Recovery Vault;
 - tests cover in-place refresh and duplicate-alias deduplication.
 
-**Next independent direction:** only close concrete product/usability gaps that can be verified without proprietary evidence. Do not create a new fidelity pass and do not ask the user for real Reaver evidence yet.
+## Independent product completion — local-first browser runtime hardening
+
+The Browser Weapon Lab and Catalog previously had hidden executable CDN dependencies (`unpkg` Three.js, Google model-viewer and Google Fonts), which conflicted with the local-first product invariant. This was corrected without creating a new fidelity phase.
+
+Added/changed:
+- Browser Weapon Lab import map now resolves Three.js locally at `apps/lab/vendor/three-r180/`;
+- `config/web-vendor.json` pins the minimal official Three.js **r180** runtime by exact upstream Git blob SHA-1;
+- `tools/dev/vendor_web_dependencies.py` performs explicit network-only setup, verifies every downloaded Git blob before atomic promotion, writes SHA-256 `VENDOR_LOCK.json`, and verifies fully offline afterward;
+- Catalog no longer loads Google `<model-viewer>`; `apps/catalog/src/local-model-viewer.js` is a ValoVault-owned minimal local GLB/animation viewer using the same pinned Three.js runtime;
+- Google Fonts runtime stylesheets/preconnects were removed from Catalog, Research and Control shells; local/system font fallbacks remain;
+- `tools/dev/audit_web_runtime.py` blocks future remote executable/style dependencies in browser app HTML/import maps; public metadata/image endpoints remain data, not executable dependencies;
+- if the local Three.js vendor package is absent, Catalog safely uses its normal image/media preview and only local inline-3D/Browser-Lab rendering is capability-gated;
+- local app doctor now reports vendor absence as an optional warning rather than a global app blocker.
+
+Current environment truth: the project container cannot fetch the pinned raw upstream files, so no third-party bytes were fabricated or claimed installed. A network-enabled setup/build machine can run `python tools/dev/vendor_web_dependencies.py install`; only exact pinned official blobs are accepted.
+
+Verification: **138 pytest tests / 26 release checks PASS**, all existing audits through Pass 10 PASS, Python compileall/relevant JS syntax PASS, and `audit_web_runtime.py` reports **0 remote executable/style findings**. Browser screenshot QA remains environment-gated.
+
+**Next independent direction:** continue concrete product/distribution gaps that are verifiable without proprietary evidence. Do not create Pass 11 and do not ask the user to execute real Reaver evidence yet.
 
 ## Durable recovery
 
-Use the newest complete verified ZIP recorded in `GITHUB_CHECKPOINTS.md`, plus the deduplicated Recovery Vault. The current checkpoint builder excludes secrets/caches/local proprietary evidence automatically and verifies CRC + recorded SHA/size before a checkpoint is accepted. GitHub remains the durable history/handoff layer; do not claim a source tree is a path/hash-complete mirror unless that exact tree has been audited.
+- Latest exact complete checkpoint: `ValoVault_PASS10_WEB_RUNTIME_HARDENED_COMPLETE.zip`, SHA-256 `aadb95b42bcf1651d0e97de9238f501982b6a3d94880f90c444fd8a7d0913570`, 601 files, CRC + package/checkpoint manifest verification PASS.
+- Latest deduplicated Recovery Vault: `ValoVault_RECOVERY_VAULT_ALL_HISTORY.zip`, SHA-256 `383ba485bce895e56049af6e7044c2c6cdf9e3cba465505c8074875ec1504862`, 33 candidates → 26 unique artifacts / 7 duplicate copies elided, CRC PASS.
+- Latest Reaver target-PC kit: SHA-256 `7d817f9d06a17148c9575b3ef792d22b1bb8e3f172b7bce618faf5334874d760`, 83 allowlisted payload files / 0 violations.
+
+Use the newest complete verified ZIP recorded in `GITHUB_CHECKPOINTS.md`, plus the deduplicated Recovery Vault. The checkpoint builder excludes secrets/caches/local proprietary evidence automatically and verifies CRC + recorded SHA/size before acceptance. GitHub remains the durable history/handoff layer; do not claim a source tree is a path/hash-complete mirror unless that exact tree has been audited.
